@@ -1,0 +1,17 @@
+{
+  "name": "capture",
+  "version": "1.0.0",
+  "description": "Capture questions and ideas",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hxlnt",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^6.2.2"
+  }
+}
