@@ -1,7 +1,46 @@
 # Questions and answers
----
-question: What is 1+1?
-answer: This question has not been answered yet.
-dateOpened: Fri Mar 01 2019 23:38:46 GMT-0600 (Central Standard Time)
-dateClosed: Wed Dec 31 1969 18:00:00 GMT-0600 (Central Standard Time)
----
+- 
+  question: 'What is 1+1?'
+  answer: 'This question has not been answered yet.'
+  dateOpened: '2019-03-02T06:59:04.436Z'
+  dateClosed: '1970-01-01T00:00:00.000Z'
+-
+  question: 'What is 1+1?'
+  answer: 'This question has not been answered yet.'
+  dateOpened: '2019-03-02T20:01:10.079Z'
+  dateClosed: '1970-01-01T00:00:00.000Z'
+-
+  question: 'What is 1+1?'
+  answer: 'This question has not been answered yet.'
+  dateOpened: '2019-03-02T20:02:35.177Z'
+  dateClosed: '1970-01-01T00:00:00.000Z'
+-
+  question: 'What is 1+1?'
+  answer: 'This question has not been answered yet.'
+  dateOpened: '2019-03-02T20:04:21.249Z'
+  dateClosed: '1970-01-01T00:00:00.000Z'
+-
+  question: 'What is 1+1?'
+  answer: 'This question has not been answered yet.'
+  dateOpened: '2019-03-02T20:08:10.393Z'
+  dateClosed: '1970-01-01T00:00:00.000Z'
+-
+  question: 'What is 1+1?'
+  answer: 'This question has not been answered yet.'
+  dateOpened: '2019-03-02T20:09:07.630Z'
+  dateClosed: '1970-01-01T00:00:00.000Z'
+-
+  question: 'What is 1+1?'
+  answer: 'This question has not been answered yet.'
+  dateOpened: '2019-03-02T20:10:08.961Z'
+  dateClosed: '1970-01-01T00:00:00.000Z'
+-
+  question: 'What is 1+1?'
+  answer: 'This question has not been answered yet.'
+  dateOpened: '2019-03-02T20:15:19.518Z'
+  dateClosed: '1970-01-01T00:00:00.000Z'
+-
+  question: 'What is 1+1?'
+  answer: 'This question has not been answered yet.'
+  dateOpened: '2019-03-02T20:16:49.046Z'
+  dateClosed: '1970-01-01T00:00:00.000Z'
