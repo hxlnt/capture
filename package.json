@@ -1,19 +1,25 @@
 {
-    "name": "typescript-slim-starter",
+    "name": "capture",
     "version": "0.1.0",
     "license": "MIT",
     "main": "build/app.js",
     "scripts": {
         "build": "tsc --build",
         "lint": "tslint -p . --force",
-        "test": "tsc --build && mocha dist/test/**/*.test.js"
+        "test": "tsc --build && mocha dist/test/**/*.test.js",
+        "coverage": "nyc npm test && nyc report"
     },
     "dependencies": {
-        "inquirer": "^6.2.2"
+        "@types/yamljs": "^0.2.30",
+        "inquirer": "^6.2.2",
+        "moment": "^2.24.0",
+        "yamljs": "^0.3.0"
     },
     "devDependencies": {
         "@types/mocha": "^5.2.5",
+        "@types/node": "^11.10.4",
         "mocha": "^5.2.0",
+        "nyc": "^13.3.0",
         "tslint": "^5.12.0",
         "typescript": "^3.1.1"
     }

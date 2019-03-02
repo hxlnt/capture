@@ -1,13 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-console.log(`Hello, Typescript!`);
-class Greeter {
-    byName(name) {
-        return `Hi, ${name}.`;
+const YAML = require("yamljs");
+class YamlService {
+    ReadYaml(path) {
+        return YAML.load(path);
     }
-    byNameLength(name) {
-        return `Hi, person with ${name.length} letters in their name.`;
+    WriteYaml(entry) {
+        return YAML.stringify(entry, 4);
+    }
+    CreateEntry(question) {
+        const DEFAULT_ANSWER = 'This question has not been answered yet.';
+        return {
+            question,
+            answer: DEFAULT_ANSWER,
+            dateOpened: new Date(),
+            dateClosed: new Date(0),
+        };
     }
 }
-exports.default = Greeter;
+exports.default = YamlService;
 //# sourceMappingURL=app.js.map

@@ -1,10 +1,7 @@
 # Questions and answers
 ---
-question: How do you refresh the file listing in NERDTree?
-question date: Wed Feb 27 2019 16:29:19 GMT-0600 (Central Standard Time)
-answer: Press 'r' while the folder is selected.
-answer date: Wed Feb 27 2019 16:33:06 GMT-0600 (Central Standard Time)
-tags:
-  - *nix
-  - vim
+question: What is 1+1?
+answer: This question has not been answered yet.
+dateOpened: Fri Mar 01 2019 23:38:46 GMT-0600 (Central Standard Time)
+dateClosed: Wed Dec 31 1969 18:00:00 GMT-0600 (Central Standard Time)
 ---
