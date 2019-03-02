@@ -4,15 +4,15 @@ Capture is a CLI tool written in Typescript for writing structured text input in
 
 [![Build Status](https://travis-ci.org/hxlnt/capture.svg?branch=master)](https://travis-ci.org/hxlnt/capture)
 
-# Install
+## Install
 `git clone https://github.com/hxlnt/capture.git`
 
 `cd capture`
 
 `npm install`
 
-# Run
+## Run
 `node src/dist/app.js`
 
-# Build from source + run tests + output coverage report
+## Build from source + run tests + output coverage report
 `npm run coverage`
