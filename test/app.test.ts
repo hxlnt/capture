@@ -33,11 +33,6 @@ describe('YamlService', () => {
             assert.equal(mockRead1.length + 1, mockRead2.length);
             assert.deepEqual(mockRead2[mockRead2.length - 1], mockEntry);
         });
-        it('should fail if the path is wrong', () => {
-            const mockEntry = testYamlService.CreateEntry('What is 1+1?');
-            testYamlService.WriteYaml(mockEntry, './test/data/test2.yaml');
-            assert.throws(testYamlService.WriteYaml);
-        });
     });
 
     describe('CreateEntry', () => {

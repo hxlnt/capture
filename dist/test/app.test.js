@@ -22,21 +22,13 @@ describe('YamlService', () => {
     describe('WriteYaml', () => {
         it('should write to test.yaml', () => {
             const mockRead1 = testYamlService.ReadYaml('./test/data/test.yaml');
-            console.log(mockRead1.length);
             const mockEntry = testYamlService.CreateEntry('What is 1+1?');
             testYamlService.WriteYaml(mockEntry, './test/data/test.yaml');
-            console.log(mockRead1.length);
             const mockRead2 = testYamlService.ReadYaml('./test/data/test.yaml');
-            console.log(mockRead1.length);
             // Object should be appended to the end of the file without altering existing content.
             assert.deepEqual(mockRead1[0], mockRead2[0]);
-            assert.deepEqual(mockRead2[mockRead2.length - 1], mockEntry);
             assert.equal(mockRead1.length + 1, mockRead2.length);
-        });
-        it('should fail if the path is wrong', () => {
-            const mockEntry = testYamlService.CreateEntry('What is 1+1?');
-            testYamlService.WriteYaml(mockEntry, './test/data/test2.yaml');
-            assert.throws(testYamlService.WriteYaml);
+            assert.deepEqual(mockRead2[mockRead2.length - 1], mockEntry);
         });
     });
     describe('CreateEntry', () => {
@@ -47,20 +39,5 @@ describe('YamlService', () => {
             assert.deepEqual(mockEntry.dateClosed, mockResult.dateClosed);
         });
     });
-    // describe('EditEntry', () => {
-    //     it('should edit an entry object', () => {
-    //         const mockEntry = testYamlService.CreateEntry('What is 1+1?');
-    //         const mockResult = testYamlService.EditEntry(entry = mockEntry, question = 'What is 1+2?');
-    //         const expectedResult = {
-    //             question: 'What is 1+2?',
-    //             answer: 'This question has not been answered yet.',
-    //             dateOpened: new Date(),
-    //             dateClosed: new Date(0),
-    //         };
-    //         assert.equal(mockResult.question, expectedResult.question);
-    //         assert.equal(mockResult.answer, expectedResult.answer);
-    //         assert.deepEqual(mockResult.dateClosed, expectedResult.dateClosed);
-    //     });
-    // });
 });
 //# sourceMappingURL=app.test.js.map
