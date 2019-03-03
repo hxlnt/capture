@@ -1,4 +1,4 @@
-import YamlService from '../src/app';
+import YamlService from '../src/yamlService';
 import assert = require('assert');
 
 describe('YamlService', () => {
@@ -62,17 +62,23 @@ describe('YamlService', () => {
     });
 
     describe('EditEntryInYaml', () => {
-        it('should edit an entry in test.yaml', () => {
-            testYamlService.EditEntryInYaml(0, mockYamlPath, 'What is 4+4?', '50,000?');
+        it('should edit just a question in test.yaml', () => {
+            testYamlService.EditEntryInYaml(0, mockYamlPath, 'What is 4+4?', undefined);
             const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
-            // It should the entry to the end of the file after editing
+            // It should add the entry to the end of the file after editing
+            assert.equal(mockRead1[1].question, 'What is 4+4?');
+            assert.equal(mockRead1[1].answer, 'This question has not been answered yet.');
+        });
+        it('should edit just an answer in test.yaml', () => {
+            testYamlService.EditEntryInYaml(1, mockYamlPath, undefined, '50,000?');
+            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
             assert.equal(mockRead1[1].question, 'What is 4+4?');
             assert.equal(mockRead1[1].answer, '50,000?');
         });
     });
 
     describe('RemoveEntryFromYaml', () => {
-        it('should remove an entry from test.yaml', () => {
+        it('should remove last entry from test.yaml', () => {
             const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
             testYamlService.RemoveEntryFromYaml(mockRead1.length - 1, mockYamlPath);
             const mockRead2 = testYamlService.ReadYaml(mockYamlPath);
