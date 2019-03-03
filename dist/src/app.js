@@ -6,11 +6,48 @@ class YamlService {
     ReadYaml(path) {
         return YAML.load(path);
     }
-    WriteYaml(entry, path) {
+    AddEntryToYaml(entry, path) {
         const array = [];
         array[0] = entry;
         const entryAsYaml = YAML.stringify(array, undefined, 2);
         fs.appendFileSync(path, entryAsYaml);
+    }
+    RemoveEntryFromYaml(entryIndex, path) {
+        let yaml = this.ReadYaml(path);
+        yaml.splice(entryIndex, 1);
+        yaml = YAML.stringify(yaml, undefined, 2);
+        fs.writeFileSync(path, yaml);
+    }
+    EditEntryInYaml(entryIndex, path, question, answer) {
+        const yamlEntry = this.ReadYaml(path)[entryIndex];
+        if (question) {
+            yamlEntry.question = question;
+        }
+        if (answer) {
+            yamlEntry.answer = answer;
+        }
+        this.RemoveEntryFromYaml(entryIndex, path);
+        const array = [];
+        array[0] = yamlEntry;
+        const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
+        fs.appendFileSync(path, editedEntryAsYaml);
+    }
+    CreateFile(path) {
+        const isFileCreated = fs.existsSync(path);
+        if (!isFileCreated) {
+            fs.writeFileSync(path, '# YAML FILE\n');
+        }
+        return isFileCreated;
+    }
+    DeleteFile(path) {
+        let result = `File ${path} deleted.`;
+        try {
+            fs.unlinkSync(path);
+        }
+        catch (_a) {
+            result = `File ${path} does not exist; no action taken.`;
+        }
+        return result;
     }
     CreateEntry(question) {
         const DEFAULT_ANSWER = 'This question has not been answered yet.';
