@@ -41,7 +41,7 @@ export default class App {
 
             this.yamlService.AddEntryToYaml(thisentry, 'data/questions.yaml');
             console.log('Question added.');
-            
+
         });
 
     }
