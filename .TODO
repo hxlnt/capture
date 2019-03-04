@@ -1,14 +1,12 @@
 # Capture is a CLI tool written in Typescript for capturing structured text input into a local YAML file. I want to use this as the basis for some other CLI tools. Plus, I want some practice with Typescript and friends (tslint, mocha, nyc).
 
 Capture:
-  [] @code Write ListEntries method 
   [] @code Write method to allow user to add question from command line 
   [] @code Write method to allow user to see list of questions from command line
   [] @code Write method to allow user to remove question from command line 
   [] @code Write method to allow user to answer question from command line
   [] @docs Write basic usage instructions
   [] @docs Write CLI --help
-  [] @test Write ListEntries test
 
 Archive:
   [X] @code Set up inquirer 
