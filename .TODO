@@ -1,30 +1,78 @@
 # Capture is a CLI tool written in Typescript for capturing structured text input into a local YAML file. I want to use this as the basis for some other CLI tools. Plus, I want some practice with Typescript and friends (tslint, mocha, nyc).
 
+# UI Notes
+
+> Add question
+
+Enter your question here
+Ready to answer? Y/N
+Enter your answer
+
+> Answer question
+
+Choose the question to answer
+> [0]
+Enter your answer
+
+> Delete question
+
+Choose the question to delete 
+> [0]
+Are you sure you want to delete [0]? Y/N
+
+> List questions
+
+Choose which questions you'd like to see.
+All questions
+All answered questions
+All unanswered questions
+Questions filtered by tag
+
+> (View entry)
+
++------------------------------------------------------------
+| What is pizza?
+| (This question has not yet been answered.)
+| Asked March 4, 2019 at 12:55 AM
+|
+| 'a': edit answer          'q': edit question 
+| 'd': delete question      'b': go back
+
 Capture:
-  [] @code Write method to allow user to add question from command line 
+  [] @code Write ListQuestionsFiltered method
+  [] @code Write MainMenu method
+  [] @code Fix hardcoded paths
+  [] @code Write AddTag method
+  [] @test Write AddTag test
+  [] @code Write DeleteTag method
+  [] @test Write DeleteTag test
   [] @code Write method to allow user to see list of questions from command line
-  [] @code Write method to allow user to remove question from command line 
+  [] @code Write DeleteQuestion method
   [] @code Write method to allow user to answer question from command line
   [] @docs Write basic usage instructions
   [] @docs Write CLI --help
 
-Archive:
-  [X] @code Set up inquirer 
-  [X] @code Set up yamljs 
-  [X] @code Write CreateEntry method
-  [X] @code Write ReadYaml method
-  [X] @code Write AddEntryToYaml method 
-  [X] @code Write RemoveEntryFromYaml method
-  [X] @code Write CreateFile method
-  [X] @code Write EditEntryInYaml method 
-  [X] @test Write CreateEntry test 
-  [X] @test Write ReadYaml test 
-  [X] @test Write AddEntryToYaml test 
-  [X] @test Write RemoveEntryFromYaml test 
-  [X] @test Write CreateFile test 
-  [X] @test Write EditEntryInYaml test 
-  [X] @tool Incorporate nyc
-  [X] @tool Add Travis CI 
-  [X] @tool Add coveralls
-
-
+Done:
+  [X] @code Write ListQuestions method
+  [X] @code Separate prompts into separate file
+  [X] @code Write ShowEntry method
+  [X] @code Write AddQuestion method
+  [X] @tool Add coveralls 
+  [X] @code Set up inquirer
+  [X] @test Write DeleteFile test
+  [X] @code Write DeleteFile method
+  [X] @test Write CreateFile test  
+  [X] @code Write CreateFile method 
+  [X] @test Write CreateEntry test  
+  [X] @code Write CreateEntry method 
+  [X] @test Write RemoveEntryFromYaml test  
+  [X] @code Write RemoveEntryFromYaml method 
+  [X] @test Write EditEntryInYaml test  
+  [X] @code Write EditEntryInYaml method  
+  [X] @test Write ReadYaml test  
+  [X] @code Write ReadYaml method 
+  [X] @test Write AddEntryToYaml test  
+  [X] @code Write AddEntryToYaml method  
+  [X] @tool Add Travis CI  
+  [X] @code Set up yamljs  
+  [X] @tool Incorporate nyc 

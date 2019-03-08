@@ -14,5 +14,7 @@
         "docs",
         "test",
         "tool"
-    ]
+    ],
+    "todo.archive.project.enabled": false,
+    "todo.archive.sortByDate": true
 }

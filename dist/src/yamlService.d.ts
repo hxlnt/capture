@@ -1,6 +1,6 @@
 export default class YamlService {
     ReadYaml(path: string): any;
-    AddEntryToYaml(entry: IQuestion, path: string): void;
+    AddEntryToYaml(entry: IQuestion, path: string): number;
     RemoveEntryFromYaml(entryIndex: number, path: string): void;
     EditEntryInYaml(entryIndex: number, path: string, question?: string, answer?: string): void;
     CreateFile(path: string): boolean;

@@ -33,20 +33,24 @@ describe('YamlService', () => {
     describe('AddEntryToYaml', () => {
         it('should write the first entry in test.yaml', () => {
             const mockEntry = testYamlService.CreateEntry('What is 1+1?');
-            testYamlService.AddEntryToYaml(mockEntry, mockYamlPath);
+            const entryIndex = testYamlService.AddEntryToYaml(mockEntry, mockYamlPath);
             const mockRead = testYamlService.ReadYaml(mockYamlPath);
             assert.equal(mockRead[0].question, mockResult.question);
             assert.equal(mockRead[0].answer, mockResult.answer);
             assert.deepEqual(mockRead[0].dateClosed, mockResult.dateClosed);
+            // There should be one entry in the file.
+            assert.equal(entryIndex, 0);
         });
         it('should write a second entry to the end of test.yaml', () => {
             const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
             const mockEntry = testYamlService.CreateEntry('What is 1+1?');
-            testYamlService.AddEntryToYaml(mockEntry, mockYamlPath);
+            const entryIndex = testYamlService.AddEntryToYaml(mockEntry, mockYamlPath);
             const mockRead2 = testYamlService.ReadYaml(mockYamlPath);
             assert.deepEqual(mockRead1[0], mockRead2[0]);
             assert.equal(mockRead1.length + 1, mockRead2.length);
             assert.deepEqual(mockRead2[mockRead2.length - 1], mockEntry);
+            // There should be two entries in the file.
+            assert.equal(entryIndex, 1);
         });
     });
     describe('ReadYaml', () => {

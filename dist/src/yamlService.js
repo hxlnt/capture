@@ -11,6 +11,8 @@ class YamlService {
         array[0] = entry;
         const entryAsYaml = YAML.stringify(array, undefined, 2);
         fs.appendFileSync(path, entryAsYaml);
+        const newYaml = this.ReadYaml(path);
+        return newYaml.length - 1;
     }
     RemoveEntryFromYaml(entryIndex, path) {
         let yaml = this.ReadYaml(path);

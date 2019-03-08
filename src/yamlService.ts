@@ -9,13 +9,16 @@ export default class YamlService {
 
     }
 
-    public AddEntryToYaml(entry: IQuestion, path: string) {
+    public AddEntryToYaml(entry: IQuestion, path: string): number {
 
         const array = [];
         array[0] = entry;
         const entryAsYaml = YAML.stringify(array, undefined, 2);
 
         fs.appendFileSync(path, entryAsYaml);
+
+        const newYaml = this.ReadYaml(path);
+        return newYaml.length - 1;
 
     }
 
