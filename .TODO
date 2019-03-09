@@ -1,32 +1,19 @@
 # Capture is a CLI tool written in Typescript for capturing structured text input into a local YAML file. I want to use this as the basis for some other CLI tools. Plus, I want some practice with Typescript and friends (tslint, mocha, nyc).
 
+# addQuestionOpts
+# 
+
 # UI Notes
 
-> Add question
 
-Enter your question here
-Ready to answer? Y/N
-Enter your answer
+# Welcome to CAPTURE
+# Press 'f' to filter list.
 
-> Answer question
+# + New question
+# Where is New York?
+# What is a pizza? (Answered March 1, 2019)
 
-Choose the question to answer
-> [0]
-Enter your answer
-
-> Delete question
-
-Choose the question to delete 
-> [0]
-Are you sure you want to delete [0]? Y/N
-
-> List questions
-
-Choose which questions you'd like to see.
-All questions
-All answered questions
-All unanswered questions
-Questions filtered by tag
+(bottom bar) 1/2 questions answered.
 
 > (View entry)
 

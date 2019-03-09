@@ -1,21 +1,21 @@
 {
-    "defaultSeverity": "warning",
+    "defaultSeverity": "error",
     "extends": [
         "tslint:recommended"
     ],
     "jsRules": {},
     "rules": {
-        "interface-name": true,
-        "max-line-length": false,
-        "no-console": false,
-        "no-switch-case-fall-through": true,
-        "object-literal-sort-keys": false,
+        "align": [true, "parameters", "arguments", "statements"],
+        "comment-format": [true, "check-space", "check-uppercase"],
+        "curly": true,
+        "no-consecutive-blank-lines": [true, 2],
+        "no-unnecessary-class": true,
+        "ordered-imports": true,
+        "prefer-function-over-method": true,
         "quotemark": [
             true,
             "single"
-        ],
-        "radix": true,
-        "ordered-imports": false
+        ]
     },
     "rulesDirectory": []
 }

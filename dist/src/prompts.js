@@ -3,30 +3,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.mainMenu = {
     type: 'list',
     name: 'options',
-    message: 'Make a selection from the options below.',
-    choices: ['Add question', 'Answer question', 'Delete question', 'List questions'],
+    message: 'Welcome to CAPTURE\n\n',
+    choices: ['+ Add question'],
 };
 exports.entryOptions = {
     type: 'list',
     name: 'entryoptions',
     message: '',
-    choices: ['Add answer', 'Edit question', 'Add another question', 'Go back'],
+    choices: ['Edit', 'Delete', 'Go back'],
 };
 exports.addQuestionPrompt = {
     type: 'input',
     name: 'newquestion',
     message: 'What\'s your question?:',
 };
-exports.listQuestionsPrompt = {
-    type: 'list',
-    name: 'questionlist',
-    message: 'Make a selection from the options below.',
-    choices: ['List answered', 'List unanswered', 'List all', 'Go back'],
+exports.addAnswerPrompt = {
+    type: 'input',
+    name: 'editanswer',
+    message: 'What\'s your answer?:',
 };
-exports.filteredQuestions = {
-    type: 'list',
-    name: 'filteredquestions',
-    message: "",
-    choices: [],
+exports.deleteConfirm = {
+    type: 'confirm',
+    name: 'deleteentry',
+    message: 'Are you sure you want to delete?',
+    default: true,
 };
 //# sourceMappingURL=prompts.js.map

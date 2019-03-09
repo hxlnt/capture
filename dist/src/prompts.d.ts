@@ -15,16 +15,15 @@ export declare const addQuestionPrompt: {
     name: string;
     message: string;
 };
-export declare const listQuestionsPrompt: {
+export declare const addAnswerPrompt: {
     type: string;
     name: string;
     message: string;
-    choices: string[];
 };
-export declare const filteredQuestions: {
+export declare const deleteConfirm: {
     type: string;
     name: string;
     message: string;
-    choices: never[];
+    default: boolean;
 };
 //# sourceMappingURL=prompts.d.ts.map

@@ -7,7 +7,5 @@ export default class App {
     addQuestion(): void;
     addAnswer(entryIndex: number): void;
     deleteQuestion(entryIndex: number): void;
-    listQuestions(): void;
-    listQuestionsFiltered(filter: string): void;
 }
 //# sourceMappingURL=app.d.ts.map
