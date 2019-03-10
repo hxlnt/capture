@@ -75,6 +75,14 @@ describe('YamlService', () => {
             assert.equal(mockRead1[1].answer, '50,000?');
         });
     });
+    describe('SortEntriesInYaml', () => {
+        it('should sort the YAML file by date', () => {
+            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
+            testYamlService.SortEntriesInYaml(mockYamlPath);
+            const mockRead2 = testYamlService.ReadYaml(mockYamlPath);
+            assert.notEqual(mockRead1[0].answer, mockRead2[0].answer);
+        });
+    });
     describe('RemoveEntryFromYaml', () => {
         it('should remove last entry from test.yaml', () => {
             const mockRead1 = testYamlService.ReadYaml(mockYamlPath);

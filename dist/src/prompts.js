@@ -12,20 +12,20 @@ exports.entryOptions = {
     message: '',
     choices: ['Edit', 'Delete', 'Go back'],
 };
-exports.addQuestionPrompt = {
+exports.editQuestionPrompt = {
     type: 'input',
     name: 'newquestion',
     message: 'What\'s your question?:',
 };
-exports.addAnswerPrompt = {
+exports.editAnswerPrompt = {
     type: 'input',
-    name: 'editanswer',
+    name: 'newanswer',
     message: 'What\'s your answer?:',
 };
 exports.deleteConfirm = {
     type: 'confirm',
     name: 'deleteentry',
-    message: 'Are you sure you want to delete?',
+    message: 'Are you sure you want to delete this entry?',
     default: true,
 };
 //# sourceMappingURL=prompts.js.map

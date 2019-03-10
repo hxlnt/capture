@@ -5,7 +5,6 @@
 
 # UI Notes
 
-
 # Welcome to CAPTURE
 # Press 'f' to filter list.
 
@@ -26,6 +25,11 @@
 | 'd': delete question      'b': go back
 
 Capture:
+  [X] @test Write SortEntriesInYaml test
+  [] @code Move YAML path out of methods and into class constructor
+  [] @code Write capMain method
+  [] @code Write capShowEntry method
+  [] @code Write capAddQuestion method
   [] @code Write ListQuestionsFiltered method
   [] @code Write MainMenu method
   [] @code Fix hardcoded paths
@@ -40,10 +44,8 @@ Capture:
   [] @docs Write CLI --help
 
 Done:
-  [X] @code Write ListQuestions method
+  [X] @code Write SortEntriesInYaml method
   [X] @code Separate prompts into separate file
-  [X] @code Write ShowEntry method
-  [X] @code Write AddQuestion method
   [X] @tool Add coveralls 
   [X] @code Set up inquirer
   [X] @test Write DeleteFile test

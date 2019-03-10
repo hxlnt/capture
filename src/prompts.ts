@@ -20,7 +20,7 @@ export const editQuestionPrompt = {
 
 export const editAnswerPrompt = {
     type: 'input',
-    name: 'editanswer',
+    name: 'newanswer',
     message: 'What\'s your answer?:',
 };
 

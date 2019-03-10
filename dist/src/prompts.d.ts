@@ -10,12 +10,12 @@ export declare const entryOptions: {
     message: string;
     choices: string[];
 };
-export declare const addQuestionPrompt: {
+export declare const editQuestionPrompt: {
     type: string;
     name: string;
     message: string;
 };
-export declare const addAnswerPrompt: {
+export declare const editAnswerPrompt: {
     type: string;
     name: string;
     message: string;

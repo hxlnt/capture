@@ -45,6 +45,15 @@ export default class YamlService {
 
     }
 
+    public SortEntriesInYaml(path: string) {
+
+        let yaml = this.ReadYaml(path);
+
+        let yamlSorted = yaml.sort((a: IQuestion, b: IQuestion) => (a.dateOpened > b.dateOpened) ? 1 : ((b.dateOpened > a.dateOpened) ? -1 : 0)); 
+        fs.writeFileSync(path, YAML.stringify(yamlSorted, undefined, 2));
+
+    }
+
     public CreateFile(path: string): boolean {
 
         const isFileCreated = fs.existsSync(path);

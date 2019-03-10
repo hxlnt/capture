@@ -34,6 +34,11 @@ class YamlService {
         const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
         fs.appendFileSync(path, editedEntryAsYaml);
     }
+    SortEntriesInYaml(path) {
+        let yaml = this.ReadYaml(path);
+        let yamlSorted = yaml.sort((a, b) => (a.dateOpened > b.dateOpened) ? 1 : ((b.dateOpened > a.dateOpened) ? -1 : 0));
+        fs.writeFileSync(path, YAML.stringify(yamlSorted, undefined, 2));
+    }
     CreateFile(path) {
         const isFileCreated = fs.existsSync(path);
         if (!isFileCreated) {
