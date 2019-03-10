@@ -25,7 +25,6 @@
 | 'd': delete question      'b': go back
 
 Capture:
-  [X] @test Write SortEntriesInYaml test
   [] @code Move YAML path out of methods and into class constructor
   [] @code Write capMain method
   [] @code Write capShowEntry method
@@ -44,6 +43,7 @@ Capture:
   [] @docs Write CLI --help
 
 Done:
+  [X] @test Write SortEntriesInYaml test
   [X] @code Write SortEntriesInYaml method
   [X] @code Separate prompts into separate file
   [X] @tool Add coveralls 

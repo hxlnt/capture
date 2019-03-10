@@ -20,9 +20,6 @@ export default class App {
         inquirer.prompt(prompts.mainMenu)
         .then((answer: inquirer.Answers) => {
             if (answer.options === prompts.mainMenu.choices[0]) { this.capAddQuestion(); } else { throw new Error((`Invalid selection: ${answer.options}`)); }
-
-            // else if (answer.options === mainMenu.choices[2]) { answerQuestion(); } else if (answer.options === mainMenu.choices[3]) { deleteQuestion(); } else if (answer.options === mainMenu.choices[4]) { listQuestions(); }d
-
         });
 
     }
@@ -35,8 +32,7 @@ export default class App {
 
     }
 
-    public capAddQuestion
-    () {
+    public capAddQuestion() {
         let entryIndex = 0;
         inquirer.prompt(prompts.editQuestionPrompt)
         .then((answer: inquirer.Answers) => {
