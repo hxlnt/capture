@@ -4,17 +4,26 @@
     "todo.colors.done": "#aeaeae",
     "todo.colors.project": "#ae81ff",
     "todo.colors.tags.background": [
+        "#8181ff",
+        "#e58545",
         "#e54545",
-        "#e5d145",
         "#45ae81",
-        "#ae81ff"
+        "#aeae45"
     ],
     "todo.tags.names": [
+        "bfix",
         "code",
         "docs",
         "test",
         "tool"
     ],
+    "todo.colors.tags.foreground": [
+        "#000000",
+        "#000000",
+        "#000000",
+        "#000000",
+        "#000000"
+      ],
     "todo.archive.project.enabled": false,
     "todo.archive.sortByDate": true
 }

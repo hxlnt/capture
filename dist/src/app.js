@@ -10,12 +10,13 @@ class App {
     capMain() {
         this.yamlService.SortEntriesInYaml;
         let yaml = this.yamlService.ReadYaml('data/questions.yaml');
+        prompts.mainMenu.choices = ['+ Add question'];
         for (let i in yaml) {
             if (yaml[i].answer == 'This question has not been answered yet.') {
                 prompts.mainMenu.choices.push(`${yaml[i].question}`);
             }
             else {
-                prompts.mainMenu.choices.push(`${yaml[i].question} (Answered on ${yaml[i].dateClosed})`);
+                prompts.mainMenu.choices.push(`${yaml[i].question} (Answered on ${new Date(yaml[i].dateClosed).toLocaleDateString()})`);
             }
         }
         inquirer.prompt(prompts.mainMenu)
@@ -24,12 +25,14 @@ class App {
                 this.capAddQuestion();
             }
             else {
-                throw new Error((`Invalid selection: ${answer.options}`));
+                this.capShowEntry(answer.indexOf());
             }
-            // else if (answer.options === mainMenu.choices[2]) { answerQuestion(); } else if (answer.options === mainMenu.choices[3]) { deleteQuestion(); } else if (answer.options === mainMenu.choices[4]) { listQuestions(); }d
         });
     }
     capShowEntry(entryIndex) {
+        let yaml = this.yamlService.ReadYaml('data/questions.yaml');
+        console.log(yaml[entryIndex].question);
+        console.log(yaml[entryIndex].answer);
     }
     capEditQuestion(entryIndex) {
     }
@@ -39,14 +42,15 @@ class App {
             .then((answer) => {
             const thisentry = this.yamlService.CreateEntry(answer.newquestion);
             entryIndex = this.yamlService.AddEntryToYaml(thisentry, 'data/questions.yaml');
+            this.capAddAnswer(entryIndex);
         });
+    }
+    capAddAnswer(entryIndex) {
         inquirer.prompt(prompts.editAnswerPrompt).then((answer) => {
             this.yamlService.EditEntryInYaml(entryIndex, 'data/questions.yaml', undefined, answer.newanswer);
             this.yamlService.SortEntriesInYaml('data/questions.yaml');
             this.capMain();
         });
-    }
-    addAnswer(entryIndex) {
     }
     deleteQuestion(entryIndex) {
     }

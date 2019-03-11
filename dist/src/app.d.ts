@@ -5,7 +5,7 @@ export default class App {
     capShowEntry(entryIndex: number): void;
     capEditQuestion(entryIndex: number): void;
     capAddQuestion(): void;
-    addAnswer(entryIndex: number): void;
+    capAddAnswer(entryIndex: number): void;
     deleteQuestion(entryIndex: number): void;
 }
 //# sourceMappingURL=app.d.ts.map

@@ -43,6 +43,11 @@ Capture:
   [] @docs Write CLI --help
 
 Done:
+  [X] @code Display friendly dates in entry list
+  [X] @bfix Make use of quotes in YAML file consistent.
+  [X] @bfix Adjust capAddAnswer method to clear old entries before printing updated list
+  [X] @bfix Fix behavior in which capAddQuestion prompt goes straight into capAddAnswer without waiting for user input
+  [X] @bfix Adjust EditEntryInYaml to incorporate correct dates
   [X] @test Write SortEntriesInYaml test
   [X] @code Write SortEntriesInYaml method
   [X] @code Separate prompts into separate file

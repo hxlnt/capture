@@ -27,6 +27,7 @@ class YamlService {
         }
         if (answer) {
             yamlEntry.answer = answer;
+            yamlEntry.dateClosed = new Date().toISOString();
         }
         this.RemoveEntryFromYaml(entryIndex, path);
         const array = [];

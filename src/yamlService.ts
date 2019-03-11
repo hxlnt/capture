@@ -36,7 +36,10 @@ export default class YamlService {
 
         const yamlEntry = this.ReadYaml(path)[entryIndex];
         if (question) { yamlEntry.question = question; }
-        if (answer) { yamlEntry.answer = answer; }
+        if (answer) { 
+            yamlEntry.answer = answer; 
+            yamlEntry.dateClosed = new Date().toISOString();
+        }
         this.RemoveEntryFromYaml(entryIndex, path);
         const array = [];
         array[0] = yamlEntry;
