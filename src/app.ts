@@ -1,13 +1,13 @@
 import YamlService, { IQuestion } from '../src/yamlService';
 import * as prompts from '../src/prompts';
 import inquirer = require('inquirer');
-import { POINT_CONVERSION_COMPRESSED } from 'constants';
 
 export default class App {
 
     public yamlService = new YamlService();
 
     public capMain() {
+        this.yamlService.CreateFile('data/questions.yaml');
         this.yamlService.SortEntriesInYaml
         let yaml = this.yamlService.ReadYaml('data/questions.yaml');
         prompts.mainMenu.choices = ['+ Add question'];

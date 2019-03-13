@@ -43,6 +43,7 @@ Capture:
   [] @docs Write CLI --help
 
 Done:
+  [X] @bfix Fix creation of new YAML file when one does not already exist
   [X] @code Display friendly dates in entry list
   [X] @bfix Make use of quotes in YAML file consistent.
   [X] @bfix Adjust capAddAnswer method to clear old entries before printing updated list

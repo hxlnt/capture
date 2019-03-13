@@ -8,6 +8,7 @@ class App {
         this.yamlService = new yamlService_1.default();
     }
     capMain() {
+        this.yamlService.CreateFile('data/questions.yaml');
         this.yamlService.SortEntriesInYaml;
         let yaml = this.yamlService.ReadYaml('data/questions.yaml');
         prompts.mainMenu.choices = ['+ Add question'];

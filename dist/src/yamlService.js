@@ -29,11 +29,18 @@ class YamlService {
             yamlEntry.answer = answer;
             yamlEntry.dateClosed = new Date().toISOString();
         }
-        this.RemoveEntryFromYaml(entryIndex, path);
         const array = [];
         array[0] = yamlEntry;
-        const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
-        fs.appendFileSync(path, editedEntryAsYaml);
+        if (this.ReadYaml(path)[1]) {
+            this.RemoveEntryFromYaml(entryIndex, path);
+            const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
+            fs.appendFileSync(path, editedEntryAsYaml);
+        }
+        else {
+            const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
+            fs.appendFileSync(path, editedEntryAsYaml);
+            this.RemoveEntryFromYaml(0, path);
+        }
     }
     SortEntriesInYaml(path) {
         let yaml = this.ReadYaml(path);
@@ -43,7 +50,7 @@ class YamlService {
     CreateFile(path) {
         const isFileCreated = fs.existsSync(path);
         if (!isFileCreated) {
-            fs.writeFileSync(path, '# YAML FILE\n');
+            fs.writeFileSync(path, '');
         }
         return isFileCreated;
     }
