@@ -25,20 +25,21 @@
 | 'd': delete question      'b': go back
 
 Capture:
-  [] @code Write capShowEntry method
   [] @code Write ListQuestionsFiltered method
   [] @code Write AddTag method
   [] @test Write AddTag test
   [] @code Write DeleteTag method
   [] @test Write DeleteTag test
-  [] @code Write method to allow user to see list of questions from command line
-  [] @code Write DeleteQuestion method
-  [] @code Write method to allow user to answer question from command line
+  [X] @code Write DeleteQuestion method
   [] @docs Write basic usage instructions
   [] @code Add interface for storageService
   [] @docs Write CLI --help
 
 Done:
+  [X] @tool Add inquirer-autosubmit-prompt
+  [X] @code Allow user to select a/b/d/q on an entry without hitting Enter to submit
+  [X] @code Write capShowEntry method
+  [X] @bfix Fix off-by-1 error in calls to capShowEntry method
   [X] @code Write capAddQuestion method
   [X] @code Write capMain method
   [X] @code Move YAML path out of methods and into class constructor

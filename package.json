@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "inquirer": "^6.2.2",
+        "inquirer-autosubmit-prompt": "^0.2.0",
         "yamljs": "^0.3.0"
     },
     "devDependencies": {

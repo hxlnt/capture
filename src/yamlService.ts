@@ -25,10 +25,12 @@ export default class YamlService {
     public RemoveEntryFromYaml(entryIndex: number, path: string) {
 
         let yaml = this.ReadYaml(path);
-
-        yaml.splice(entryIndex, 1);
-        yaml = YAML.stringify(yaml, undefined, 2);
-        fs.writeFileSync(path, yaml);
+        if (yaml.length > 1) {
+            yaml.splice(entryIndex, 1);
+            yaml = YAML.stringify(yaml, undefined, 2);
+            fs.writeFileSync(path, yaml);
+        }
+        else { fs.writeFileSync(path, ''); }
 
     }
 
@@ -38,7 +40,7 @@ export default class YamlService {
         if (question) { yamlEntry.question = question; }
         if (answer) { 
             yamlEntry.answer = answer; 
-            yamlEntry.dateClosed = new Date().toISOString();
+            if (answer != ' '){ yamlEntry.dateClosed = new Date().toISOString(); }
         }
         const array = [];
         array[0] = yamlEntry;
@@ -85,7 +87,7 @@ export default class YamlService {
 
     public CreateEntry(question: string): IQuestion {
 
-        const DEFAULT_ANSWER = 'This question has not been answered yet.';
+        const DEFAULT_ANSWER = '';
         const NULL_DATE = new Date(0);
         const CURRENT_DATE = new Date();
 

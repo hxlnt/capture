@@ -7,20 +7,22 @@ exports.mainMenu = {
     choices: ['+ Add question'],
 };
 exports.entryOptions = {
-    type: 'list',
+    type: 'autosubmit',
     name: 'entryoptions',
-    message: '',
-    choices: ['Edit', 'Delete', 'Go back'],
+    message: 'Make a selection:',
+    autoSubmit: (input) => input.length == 1
 };
 exports.editQuestionPrompt = {
     type: 'input',
     name: 'newquestion',
-    message: 'What\'s your question?:',
+    default: '???',
+    message: 'Your question:',
 };
 exports.editAnswerPrompt = {
     type: 'input',
     name: 'newanswer',
-    message: 'What\'s your answer?:',
+    default: 'Or, press Enter to save question without answering.',
+    message: 'Your answer:',
 };
 exports.deleteConfirm = {
     type: 'confirm',

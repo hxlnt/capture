@@ -6,22 +6,24 @@ export const mainMenu = {
 };
 
 export const entryOptions = {
-    type: 'list',
+    type: 'autosubmit',
     name: 'entryoptions',
-    message: '',
-    choices: ['Edit', 'Delete', 'Go back'],
+    message: 'Make a selection:',
+    autoSubmit: (input: { length: number; }) => input.length == 1
 }
 
 export const editQuestionPrompt = {
     type: 'input',
     name: 'newquestion',
-    message: 'What\'s your question?:',
+    default: '???',
+    message: 'Your question:',
 };
 
 export const editAnswerPrompt = {
     type: 'input',
     name: 'newanswer',
-    message: 'What\'s your answer?:',
+    default: 'Or, press Enter to save question without answering.',
+    message: 'Your answer:',
 };
 
 export const deleteConfirm = {

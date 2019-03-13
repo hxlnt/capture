@@ -8,16 +8,20 @@ export declare const entryOptions: {
     type: string;
     name: string;
     message: string;
-    choices: string[];
+    autoSubmit: (input: {
+        length: number;
+    }) => boolean;
 };
 export declare const editQuestionPrompt: {
     type: string;
     name: string;
+    default: string;
     message: string;
 };
 export declare const editAnswerPrompt: {
     type: string;
     name: string;
+    default: string;
     message: string;
 };
 export declare const deleteConfirm: {

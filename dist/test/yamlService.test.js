@@ -6,7 +6,7 @@ describe('YamlService', () => {
     const testYamlService = new yamlService_1.default();
     const mockResult = {
         question: 'What is 1+1?',
-        answer: 'This question has not been answered yet.',
+        answer: '',
         dateOpened: '2019-03-02T06:59:04.436Z',
         dateClosed: '1970-01-01T00:00:00.000Z',
     };
@@ -16,7 +16,7 @@ describe('YamlService', () => {
         it('should create a entry object from a string', () => {
             const mockEntry = testYamlService.CreateEntry('What is 1+1?');
             assert.equal(mockEntry.question, mockResult.question);
-            assert.equal(mockEntry.answer, mockResult.answer);
+            assert.equal(mockEntry.answer, '');
             assert.deepEqual(mockEntry.dateClosed, mockResult.dateClosed);
         });
     });
@@ -66,7 +66,7 @@ describe('YamlService', () => {
             const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
             // It should add the entry to the end of the file after editing
             assert.equal(mockRead1[1].question, 'What is 4+4?');
-            assert.equal(mockRead1[1].answer, 'This question has not been answered yet.');
+            assert.equal(mockRead1[1].answer, '');
         });
         it('should edit just an answer in test.yaml', () => {
             testYamlService.EditEntryInYaml(1, mockYamlPath, undefined, '50,000?');

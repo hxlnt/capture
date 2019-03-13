@@ -16,9 +16,14 @@ class YamlService {
     }
     RemoveEntryFromYaml(entryIndex, path) {
         let yaml = this.ReadYaml(path);
-        yaml.splice(entryIndex, 1);
-        yaml = YAML.stringify(yaml, undefined, 2);
-        fs.writeFileSync(path, yaml);
+        if (yaml.length > 1) {
+            yaml.splice(entryIndex, 1);
+            yaml = YAML.stringify(yaml, undefined, 2);
+            fs.writeFileSync(path, yaml);
+        }
+        else {
+            fs.writeFileSync(path, '');
+        }
     }
     EditEntryInYaml(entryIndex, path, question, answer) {
         const yamlEntry = this.ReadYaml(path)[entryIndex];
@@ -27,7 +32,9 @@ class YamlService {
         }
         if (answer) {
             yamlEntry.answer = answer;
-            yamlEntry.dateClosed = new Date().toISOString();
+            if (answer != ' ') {
+                yamlEntry.dateClosed = new Date().toISOString();
+            }
         }
         const array = [];
         array[0] = yamlEntry;
@@ -65,7 +72,7 @@ class YamlService {
         return result;
     }
     CreateEntry(question) {
-        const DEFAULT_ANSWER = 'This question has not been answered yet.';
+        const DEFAULT_ANSWER = '';
         const NULL_DATE = new Date(0);
         const CURRENT_DATE = new Date();
         return {

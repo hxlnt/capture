@@ -1,1 +1,1 @@
-{"version":3,"file":"prompts.d.ts","sourceRoot":"","sources":["../../src/prompts.ts"],"names":[],"mappings":"AAAA,eAAO,MAAM,QAAQ;;;;;CAKpB,CAAC;AAEF,eAAO,MAAM,YAAY;;;;;CAKxB,CAAA;AAED,eAAO,MAAM,kBAAkB;;;;CAI9B,CAAC;AAEF,eAAO,MAAM,gBAAgB;;;;CAI5B,CAAC;AAEF,eAAO,MAAM,aAAa;;;;;CAKzB,CAAA"}
+{"version":3,"file":"prompts.d.ts","sourceRoot":"","sources":["../../src/prompts.ts"],"names":[],"mappings":"AAAA,eAAO,MAAM,QAAQ;;;;;CAKpB,CAAC;AAEF,eAAO,MAAM,YAAY;;;;;;;CAKxB,CAAA;AAED,eAAO,MAAM,kBAAkB;;;;;CAK9B,CAAC;AAEF,eAAO,MAAM,gBAAgB;;;;;CAK5B,CAAC;AAEF,eAAO,MAAM,aAAa;;;;;CAKzB,CAAA"}
