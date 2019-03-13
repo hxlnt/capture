@@ -25,13 +25,8 @@
 | 'd': delete question      'b': go back
 
 Capture:
-  [] @code Move YAML path out of methods and into class constructor
-  [] @code Write capMain method
   [] @code Write capShowEntry method
-  [] @code Write capAddQuestion method
   [] @code Write ListQuestionsFiltered method
-  [] @code Write MainMenu method
-  [] @code Fix hardcoded paths
   [] @code Write AddTag method
   [] @test Write AddTag test
   [] @code Write DeleteTag method
@@ -40,12 +35,14 @@ Capture:
   [] @code Write DeleteQuestion method
   [] @code Write method to allow user to answer question from command line
   [] @docs Write basic usage instructions
+  [] @code Add interface for storageService
   [] @docs Write CLI --help
 
 Done:
+  [X] @code Write capAddQuestion method
+  [X] @code Write capMain method
+  [X] @code Move YAML path out of methods and into class constructor
   [X] @bfix Fix creation of new YAML file when one does not already exist
-  [X] @code Display friendly dates in entry list
-  [X] @bfix Make use of quotes in YAML file consistent.
   [X] @bfix Adjust capAddAnswer method to clear old entries before printing updated list
   [X] @bfix Fix behavior in which capAddQuestion prompt goes straight into capAddAnswer without waiting for user input
   [X] @bfix Adjust EditEntryInYaml to incorporate correct dates
