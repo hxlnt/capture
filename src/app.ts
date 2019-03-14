@@ -1,9 +1,9 @@
 import inquirer = require('inquirer');
-// import inquirerAutosubmit = require('inquirer-autosubmit-prompt');
+import inquirerAutosubmit = require('inquirer-autosubmit-prompt');
 import * as prompts from '../src/prompts';
 import YamlService, { IQuestion } from '../src/yamlService';
 
-inquirer.registerPrompt('autosubmit', require('inquirer-autosubmit-prompt'));
+inquirer.registerPrompt('autosubmit', inquirerAutosubmit);
 
 export default class App {
 
@@ -42,10 +42,10 @@ export default class App {
 
     public capShowEntry(entryIndex: number) {
         const yaml = this.storageService.ReadYaml('data/questions.yaml');
-        console.log('\n+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+')
+        console.log('\n+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
         console.log(`Question: ${yaml[entryIndex].question}`);
         console.log(`Answer: ${yaml[entryIndex].answer}`);
-        console.log('+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+')
+        console.log('+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
         console.log('(q) edit question         (a) edit answer');
         console.log('(d) delete entry          (b) go back\n');
         inquirer.prompt(prompts.entryOptions)
