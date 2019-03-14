@@ -14,23 +14,14 @@
 
 (bottom bar) 1/2 questions answered.
 
-> (View entry)
-
-+------------------------------------------------------------
-| What is pizza?
-| (This question has not yet been answered.)
-| Asked March 4, 2019 at 12:55 AM
-|
-| 'a': edit answer          'q': edit question 
-| 'd': delete question      'b': go back
 
 Capture:
-  [] @code Make capShowEntry method prettier
   [] @code Write ListQuestionsFiltered method
   [] @code Write AddTag method
   [] @test Write AddTag test
   [] @code Write DeleteTag method
   [] @test Write DeleteTag test
+  [] @code Add stats bar
   [] @test Improve test coverage (>= 95%)
   [] @docs Write basic usage instructions
   [] @code Fix linting errors

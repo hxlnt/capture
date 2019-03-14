@@ -42,11 +42,12 @@ export default class App {
 
     public capShowEntry(entryIndex: number) {
         const yaml = this.storageService.ReadYaml('data/questions.yaml');
+        console.log('\n+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+')
         console.log(`Question: ${yaml[entryIndex].question}`);
         console.log(`Answer: ${yaml[entryIndex].answer}`);
-        console.log('-----------------------------------------------------');
-        console.log('\'a\': edit answer              \'q\': edit question');
-        console.log('\'d\': delete question          \'b\': go back' );
+        console.log('+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+')
+        console.log('(q) edit question         (a) edit answer');
+        console.log('(d) delete entry          (b) go back\n');
         inquirer.prompt(prompts.entryOptions)
         .then((answer: inquirer.Answers) => {
             if (answer.entryoptions === 'a') {
