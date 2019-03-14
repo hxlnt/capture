@@ -25,17 +25,21 @@
 | 'd': delete question      'b': go back
 
 Capture:
+  [] @code Make capShowEntry method prettier
   [] @code Write ListQuestionsFiltered method
   [] @code Write AddTag method
   [] @test Write AddTag test
   [] @code Write DeleteTag method
   [] @test Write DeleteTag test
-  [X] @code Write DeleteQuestion method
+  [] @test Improve test coverage (>= 95%)
   [] @docs Write basic usage instructions
-  [] @code Add interface for storageService
-  [] @docs Write CLI --help
+  [] @code Fix linting errors
+  [] @test Write tests for app.ts
 
 Done:
+  [X] @test Fix faulty unit test for AddEntryToYaml
+  [X] @bfix Send user back to entry if invalid selection is made
+  [X] @code Write DeleteQuestion method
   [X] @tool Add inquirer-autosubmit-prompt
   [X] @code Allow user to select a/b/d/q on an entry without hitting Enter to submit
   [X] @code Write capShowEntry method

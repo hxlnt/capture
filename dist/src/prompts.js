@@ -1,33 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mainMenu = {
-    type: 'list',
-    name: 'options',
-    message: 'Welcome to CAPTURE\n\n',
     choices: ['+ Add question'],
+    message: 'Welcome to CAPTURE\n\n',
+    name: 'options',
+    type: 'list',
 };
 exports.entryOptions = {
-    type: 'autosubmit',
-    name: 'entryoptions',
+    autoSubmit: (input) => input.length === 1,
     message: 'Make a selection:',
-    autoSubmit: (input) => input.length == 1
+    name: 'entryoptions',
+    type: 'autosubmit',
 };
 exports.editQuestionPrompt = {
-    type: 'input',
-    name: 'newquestion',
     default: '???',
     message: 'Your question:',
+    name: 'newquestion',
+    type: 'input',
 };
 exports.editAnswerPrompt = {
-    type: 'input',
-    name: 'newanswer',
     default: 'Or, press Enter to save question without answering.',
     message: 'Your answer:',
+    name: 'newanswer',
+    type: 'input',
 };
 exports.deleteConfirm = {
-    type: 'confirm',
-    name: 'deleteentry',
-    message: 'Are you sure you want to delete this entry?',
     default: true,
+    message: 'Are you sure you want to delete this entry?',
+    name: 'deleteentry',
+    type: 'confirm',
 };
 //# sourceMappingURL=prompts.js.map

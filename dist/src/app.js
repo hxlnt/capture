@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const yamlService_1 = require("../src/yamlService");
-const prompts = require("../src/prompts");
 const inquirer = require("inquirer");
+// import inquirerAutosubmit = require('inquirer-autosubmit-prompt');
+const prompts = require("../src/prompts");
+const yamlService_1 = require("../src/yamlService");
 inquirer.registerPrompt('autosubmit', require('inquirer-autosubmit-prompt'));
 class App {
     constructor(storageService, questionPath) {
@@ -11,15 +12,18 @@ class App {
     }
     capMain() {
         this.storageService.CreateFile(this.questionPath);
-        this.storageService.SortEntriesInYaml;
-        let yaml = this.storageService.ReadYaml(this.questionPath);
+        const yaml = this.storageService.ReadYaml(this.questionPath);
+        if (yaml != null) {
+            this.storageService.SortEntriesInYaml(this.questionPath);
+        }
         prompts.mainMenu.choices = ['+ Add question'];
-        for (let i in yaml) {
-            if (yaml[i].answer == ' ') {
+        for (const i in yaml) {
+            if (yaml[i].answer === ' ') {
                 prompts.mainMenu.choices.push(`${yaml[i].question}`);
             }
             else {
-                prompts.mainMenu.choices.push(`${yaml[i].question} (Answered on ${new Date(yaml[i].dateClosed).toLocaleDateString()})`);
+                const dateClosed = new Date(yaml[i].dateClosed).toLocaleDateString();
+                prompts.mainMenu.choices.push(`${yaml[i].question} (Answered on ${dateClosed})`);
             }
         }
         inquirer.prompt(prompts.mainMenu)
@@ -33,27 +37,29 @@ class App {
         });
     }
     capShowEntry(entryIndex) {
-        let yaml = this.storageService.ReadYaml('data/questions.yaml');
-        console.log(yaml[entryIndex].answer);
+        const yaml = this.storageService.ReadYaml('data/questions.yaml');
+        console.log(`Question: ${yaml[entryIndex].question}`);
+        console.log(`Answer: ${yaml[entryIndex].answer}`);
         console.log('-----------------------------------------------------');
-        console.log('\'a\': edit answer              \'e\': edit question');
+        console.log('\'a\': edit answer              \'q\': edit question');
         console.log('\'d\': delete question          \'b\': go back');
         inquirer.prompt(prompts.entryOptions)
             .then((answer) => {
-            if (answer.entryoptions == 'a') {
+            if (answer.entryoptions === 'a') {
                 this.capAddAnswer(entryIndex);
             }
-            else if (answer.entryoptions == 'b') {
+            else if (answer.entryoptions === 'b') {
                 this.capMain();
             }
-            else if (answer.entryoptions == 'd') {
+            else if (answer.entryoptions === 'd') {
                 this.deleteQuestion(entryIndex);
             }
-            else if (answer.entryoptions == 'e') {
+            else if (answer.entryoptions === 'e') {
                 this.capEditQuestion(entryIndex);
             }
             else {
-                throw new Error(`Whoops! ${answer.input}`);
+                console.log('That is not a valid choice. Please try again.');
+                this.capShowEntry(entryIndex);
             }
         });
     }
@@ -80,7 +86,7 @@ class App {
         const thisentry = this.storageService.ReadYaml(this.questionPath)[entryIndex];
         console.log(thisentry.question);
         inquirer.prompt(prompts.editAnswerPrompt).then((answer) => {
-            if (answer.newanswer == prompts.editAnswerPrompt.default) {
+            if (answer.newanswer === prompts.editAnswerPrompt.default) {
                 answer.newanswer = ' ';
             }
             this.storageService.EditEntryInYaml(entryIndex, this.questionPath, undefined, answer.newanswer);
@@ -90,7 +96,7 @@ class App {
     }
     deleteQuestion(entryIndex) {
         inquirer.prompt(prompts.deleteConfirm).then((answer) => {
-            if (answer.deleteentry == true) {
+            if (answer.deleteentry === true) {
                 this.storageService.RemoveEntryFromYaml(entryIndex, this.questionPath);
                 this.capMain();
             }

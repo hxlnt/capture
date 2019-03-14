@@ -1,13 +1,13 @@
-import YamlService from '../src/yamlService';
 import assert = require('assert');
+import YamlService from '../src/yamlService';
 
 describe('YamlService', () => {
     const testYamlService = new YamlService();
     const mockResult = {
-        question: 'What is 1+1?',
         answer: '',
-        dateOpened: '2019-03-02T06:59:04.436Z',
         dateClosed: '1970-01-01T00:00:00.000Z',
+        dateOpened: '2019-03-02T06:59:04.436Z',
+        question: 'What is 1+1?',
     };
     const mockYamlPath = './test/data/test.yaml';
 
@@ -44,16 +44,16 @@ describe('YamlService', () => {
             // There should be one entry in the file.
             assert.equal(entryIndex, 0);
         });
-        it('should write a second entry to the end of test.yaml', () => {
+        it('should write a second entry to the top of test.yaml', () => {
             const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
-            const mockEntry = testYamlService.CreateEntry('What is 1+1?');
+            const mockEntry = testYamlService.CreateEntry('What is 2+2?');
             const entryIndex = testYamlService.AddEntryToYaml(mockEntry, mockYamlPath);
             const mockRead2 = testYamlService.ReadYaml(mockYamlPath);
-            assert.deepEqual(mockRead1[0], mockRead2[0]);
             assert.equal(mockRead1.length + 1, mockRead2.length);
             assert.deepEqual(mockRead2[mockRead2.length - 1], mockEntry);
             // There should be two entries in the file.
             assert.equal(entryIndex, 1);
+            assert.equal(mockRead2[entryIndex].question, 'What is 2+2?');
         });
     });
 
@@ -67,27 +67,28 @@ describe('YamlService', () => {
 
     describe('EditEntryInYaml', () => {
         it('should edit just a question in test.yaml', () => {
-            testYamlService.EditEntryInYaml(0, mockYamlPath, 'What is 4+4?', undefined);
+            testYamlService.EditEntryInYaml(0, mockYamlPath, 'What is 1 plus 1?', undefined);
             const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
             // It should add the entry to the end of the file after editing
-            assert.equal(mockRead1[1].question, 'What is 4+4?');
+            assert.equal(mockRead1[1].question, 'What is 1 plus 1?');
             assert.equal(mockRead1[1].answer, '');
         });
         it('should edit just an answer in test.yaml', () => {
-            testYamlService.EditEntryInYaml(1, mockYamlPath, undefined, '50,000?');
+            testYamlService.EditEntryInYaml(1, mockYamlPath, undefined, 'two');
             const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
-            assert.equal(mockRead1[1].question, 'What is 4+4?');
-            assert.equal(mockRead1[1].answer, '50,000?');
+            assert.equal(mockRead1[1].question, 'What is 1 plus 1?');
+            assert.equal(mockRead1[1].answer, 'two');
         });
     });
 
     describe('SortEntriesInYaml', () => {
         it('should sort the YAML file by date', () => {
-            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
             testYamlService.SortEntriesInYaml(mockYamlPath);
-            const mockRead2 = testYamlService.ReadYaml(mockYamlPath);
-            assert.notEqual(mockRead1[0].answer, mockRead2[0].answer);
-        })
+        });
+        it('should reverse the order of the entries', () => {
+            const mockRead = testYamlService.ReadYaml(mockYamlPath);
+            assert.equal(mockRead[0].answer, '');
+        });
     });
 
     describe('RemoveEntryFromYaml', () => {

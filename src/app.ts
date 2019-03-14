@@ -1,54 +1,70 @@
-import YamlService, { IQuestion } from '../src/yamlService';
-import * as prompts from '../src/prompts';
 import inquirer = require('inquirer');
+// import inquirerAutosubmit = require('inquirer-autosubmit-prompt');
+import * as prompts from '../src/prompts';
+import YamlService, { IQuestion } from '../src/yamlService';
+
 inquirer.registerPrompt('autosubmit', require('inquirer-autosubmit-prompt'));
 
 export default class App {
 
-    storageService: YamlService;
-    questionPath: string;
-    constructor(storageService: YamlService, questionPath: string){
+    private storageService: YamlService;
+    private questionPath: string;
+    constructor(storageService: YamlService, questionPath: string) {
         this.storageService = storageService;
         this.questionPath = questionPath;
     }
 
     public capMain() {
         this.storageService.CreateFile(this.questionPath);
-        this.storageService.SortEntriesInYaml
-        let yaml = this.storageService.ReadYaml(this.questionPath);
+        const yaml = this.storageService.ReadYaml(this.questionPath);
+        if (yaml != null) {
+            this.storageService.SortEntriesInYaml(this.questionPath);
+        }
         prompts.mainMenu.choices = ['+ Add question'];
-        for (let i in yaml) {
-            if (yaml[i].answer == ' ') {
+        for (const i in yaml) {
+            if (yaml[i].answer === ' ') {
                 prompts.mainMenu.choices.push(`${yaml[i].question}`);
-            }
-            else {
-                prompts.mainMenu.choices.push(`${yaml[i].question} (Answered on ${new Date(yaml[i].dateClosed).toLocaleDateString()})`);
+            } else {
+                const dateClosed = new Date(yaml[i].dateClosed).toLocaleDateString();
+                prompts.mainMenu.choices.push(`${yaml[i].question} (Answered on ${dateClosed})`);
             }
         }
         inquirer.prompt(prompts.mainMenu)
         .then((answer: inquirer.Answers) => {
-            if (answer.options === prompts.mainMenu.choices[0]) { this.capAddQuestion(); } else { this.capShowEntry(prompts.mainMenu.choices.indexOf(answer.options) - 1); }
+            if (answer.options === prompts.mainMenu.choices[0]) {
+                this.capAddQuestion();
+            } else {
+                this.capShowEntry(prompts.mainMenu.choices.indexOf(answer.options) - 1);
+            }
         });
 
     }
 
     public capShowEntry(entryIndex: number) {
-        let yaml = this.storageService.ReadYaml('data/questions.yaml');
-        console.log(yaml[entryIndex].answer);
-        console.log('-----------------------------------------------------')
-        console.log('\'a\': edit answer              \'e\': edit question');
+        const yaml = this.storageService.ReadYaml('data/questions.yaml');
+        console.log(`Question: ${yaml[entryIndex].question}`);
+        console.log(`Answer: ${yaml[entryIndex].answer}`);
+        console.log('-----------------------------------------------------');
+        console.log('\'a\': edit answer              \'q\': edit question');
         console.log('\'d\': delete question          \'b\': go back' );
         inquirer.prompt(prompts.entryOptions)
         .then((answer: inquirer.Answers) => {
-            if (answer.entryoptions == 'a') { this.capAddAnswer(entryIndex); }
-            else if (answer.entryoptions == 'b') { this.capMain(); }
-            else if (answer.entryoptions == 'd') { this.deleteQuestion(entryIndex); }
-            else if (answer.entryoptions == 'e') { this.capEditQuestion(entryIndex); }
-            else { throw new Error(`Whoops! ${answer.input}`); }
+            if (answer.entryoptions === 'a') {
+                this.capAddAnswer(entryIndex);
+            } else if (answer.entryoptions === 'b') {
+                this.capMain();
+            } else if (answer.entryoptions === 'd') {
+                this.deleteQuestion(entryIndex);
+            } else if (answer.entryoptions === 'e') {
+                this.capEditQuestion(entryIndex);
+            } else {
+                console.log('That is not a valid choice. Please try again.');
+                this.capShowEntry(entryIndex);
+            }
         });
     }
 
-    public capEditQuestion(entryIndex: number){
+    public capEditQuestion(entryIndex: number) {
         const thisentry = this.storageService.ReadYaml(this.questionPath)[entryIndex];
         prompts.editQuestionPrompt.default = thisentry.question;
         inquirer.prompt(prompts.editQuestionPrompt).then((answer: inquirer.Answers) => {
@@ -72,11 +88,11 @@ export default class App {
     public capAddAnswer(entryIndex: number) {
             const thisentry = this.storageService.ReadYaml(this.questionPath)[entryIndex];
             console.log(thisentry.question);
-        inquirer.prompt(prompts.editAnswerPrompt).then((answer: inquirer.Answers) => {
-            if (answer.newanswer == prompts.editAnswerPrompt.default) {
+            inquirer.prompt(prompts.editAnswerPrompt).then((answer: inquirer.Answers) => {
+            if (answer.newanswer === prompts.editAnswerPrompt.default) {
                 answer.newanswer = ' ';
             }
-            this.storageService.EditEntryInYaml(entryIndex, this.questionPath, undefined, answer.newanswer)
+            this.storageService.EditEntryInYaml(entryIndex, this.questionPath, undefined, answer.newanswer);
             this.storageService.SortEntriesInYaml(this.questionPath);
             this.capShowEntry(entryIndex);
         });
@@ -84,11 +100,10 @@ export default class App {
 
     public deleteQuestion(entryIndex: number) {
         inquirer.prompt(prompts.deleteConfirm).then((answer: inquirer.Answers) => {
-            if (answer.deleteentry == true) {
+            if (answer.deleteentry === true) {
                 this.storageService.RemoveEntryFromYaml(entryIndex, this.questionPath);
                 this.capMain();
-            }
-            else { this.capShowEntry(entryIndex); }
+            } else { this.capShowEntry(entryIndex); }
         });
     }
 

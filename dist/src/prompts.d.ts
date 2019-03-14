@@ -1,33 +1,33 @@
 export declare const mainMenu: {
-    type: string;
-    name: string;
-    message: string;
     choices: string[];
+    message: string;
+    name: string;
+    type: string;
 };
 export declare const entryOptions: {
-    type: string;
-    name: string;
-    message: string;
     autoSubmit: (input: {
         length: number;
     }) => boolean;
+    message: string;
+    name: string;
+    type: string;
 };
 export declare const editQuestionPrompt: {
-    type: string;
-    name: string;
     default: string;
     message: string;
+    name: string;
+    type: string;
 };
 export declare const editAnswerPrompt: {
-    type: string;
-    name: string;
     default: string;
     message: string;
+    name: string;
+    type: string;
 };
 export declare const deleteConfirm: {
-    type: string;
-    name: string;
-    message: string;
     default: boolean;
+    message: string;
+    name: string;
+    type: string;
 };
 //# sourceMappingURL=prompts.d.ts.map

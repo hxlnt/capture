@@ -3,12 +3,6 @@ import YAML = require('yamljs');
 
 export default class YamlService {
 
-    public ReadYaml(path: string) {
-
-        return YAML.load(path);
-
-    }
-
     public AddEntryToYaml(entry: IQuestion, path: string): number {
 
         const array = [];
@@ -29,8 +23,7 @@ export default class YamlService {
             yaml.splice(entryIndex, 1);
             yaml = YAML.stringify(yaml, undefined, 2);
             fs.writeFileSync(path, yaml);
-        }
-        else { fs.writeFileSync(path, ''); }
+        } else { fs.writeFileSync(path, ''); }
 
     }
 
@@ -38,9 +31,9 @@ export default class YamlService {
 
         const yamlEntry = this.ReadYaml(path)[entryIndex];
         if (question) { yamlEntry.question = question; }
-        if (answer) { 
-            yamlEntry.answer = answer; 
-            if (answer != ' '){ yamlEntry.dateClosed = new Date().toISOString(); }
+        if (answer) {
+            yamlEntry.answer = answer;
+            if (answer !== ' ') { yamlEntry.dateClosed = new Date().toISOString(); }
         }
         const array = [];
         array[0] = yamlEntry;
@@ -48,8 +41,7 @@ export default class YamlService {
             this.RemoveEntryFromYaml(entryIndex, path);
             const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
             fs.appendFileSync(path, editedEntryAsYaml);
-        }
-        else {
+        } else {
             const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
             fs.appendFileSync(path, editedEntryAsYaml);
             this.RemoveEntryFromYaml(0, path);
@@ -58,10 +50,18 @@ export default class YamlService {
 
     public SortEntriesInYaml(path: string) {
 
-        let yaml = this.ReadYaml(path);
+        const yaml = this.ReadYaml(path);
 
-        let yamlSorted = yaml.sort((a: IQuestion, b: IQuestion) => (a.dateOpened > b.dateOpened) ? 1 : ((b.dateOpened > a.dateOpened) ? -1 : 0)); 
+        const yamlSorted = yaml.sort(
+            (a: IQuestion, b: IQuestion) =>
+                (a.dateOpened < b.dateOpened) ? 1 : ((b.dateOpened < a.dateOpened) ? -1 : 0));
         fs.writeFileSync(path, YAML.stringify(yamlSorted, undefined, 2));
+
+    }
+
+    public ReadYaml(path: string) {
+
+        return YAML.load(path);
 
     }
 
@@ -87,15 +87,15 @@ export default class YamlService {
 
     public CreateEntry(question: string): IQuestion {
 
+        const CURRENT_DATE = new Date();
         const DEFAULT_ANSWER = '';
         const NULL_DATE = new Date(0);
-        const CURRENT_DATE = new Date();
 
         return {
-            question,
             answer: DEFAULT_ANSWER,
-            dateOpened: CURRENT_DATE.toISOString(),
             dateClosed: NULL_DATE.toISOString(),
+            dateOpened: CURRENT_DATE.toISOString(),
+            question,
         };
 
     }

@@ -1,7 +1,7 @@
 import YamlService from '../src/yamlService';
 export default class App {
-    storageService: YamlService;
-    questionPath: string;
+    private storageService;
+    private questionPath;
     constructor(storageService: YamlService, questionPath: string);
     capMain(): void;
     capShowEntry(entryIndex: number): void;

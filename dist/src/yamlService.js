@@ -3,9 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const YAML = require("yamljs");
 class YamlService {
-    ReadYaml(path) {
-        return YAML.load(path);
-    }
     AddEntryToYaml(entry, path) {
         const array = [];
         array[0] = entry;
@@ -32,7 +29,7 @@ class YamlService {
         }
         if (answer) {
             yamlEntry.answer = answer;
-            if (answer != ' ') {
+            if (answer !== ' ') {
                 yamlEntry.dateClosed = new Date().toISOString();
             }
         }
@@ -50,9 +47,12 @@ class YamlService {
         }
     }
     SortEntriesInYaml(path) {
-        let yaml = this.ReadYaml(path);
-        let yamlSorted = yaml.sort((a, b) => (a.dateOpened > b.dateOpened) ? 1 : ((b.dateOpened > a.dateOpened) ? -1 : 0));
+        const yaml = this.ReadYaml(path);
+        const yamlSorted = yaml.sort((a, b) => (a.dateOpened < b.dateOpened) ? 1 : ((b.dateOpened < a.dateOpened) ? -1 : 0));
         fs.writeFileSync(path, YAML.stringify(yamlSorted, undefined, 2));
+    }
+    ReadYaml(path) {
+        return YAML.load(path);
     }
     CreateFile(path) {
         const isFileCreated = fs.existsSync(path);
@@ -72,14 +72,14 @@ class YamlService {
         return result;
     }
     CreateEntry(question) {
+        const CURRENT_DATE = new Date();
         const DEFAULT_ANSWER = '';
         const NULL_DATE = new Date(0);
-        const CURRENT_DATE = new Date();
         return {
-            question,
             answer: DEFAULT_ANSWER,
-            dateOpened: CURRENT_DATE.toISOString(),
             dateClosed: NULL_DATE.toISOString(),
+            dateOpened: CURRENT_DATE.toISOString(),
+            question,
         };
     }
 }
