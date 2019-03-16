@@ -95,7 +95,7 @@ export default class App {
             }
             this.storageService.EditEntryInYaml(entryIndex, this.questionPath, undefined, answer.newanswer);
             this.storageService.SortEntriesInYaml(this.questionPath);
-            this.capShowEntry(entryIndex);
+            this.capMain();
         });
     }
 
