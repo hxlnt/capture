@@ -8,6 +8,7 @@ export default class App {
     capEditQuestion(entryIndex: number): void;
     capAddQuestion(): void;
     capAddAnswer(entryIndex: number): void;
-    deleteQuestion(entryIndex: number): void;
+    capDeleteQuestion(entryIndex: number): void;
+    capFilterEntries(tag: string): void;
 }
 //# sourceMappingURL=app.d.ts.map

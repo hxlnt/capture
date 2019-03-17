@@ -14,11 +14,8 @@
 
 (bottom bar) 1/2 questions answered.
 
-
 Capture:
   [] @code Write ListQuestionsFiltered method
-  [] @code Write AddTag method
-  [] @test Write AddTag test
   [] @code Write DeleteTag method
   [] @test Write DeleteTag test
   [] @code Add stats bar
@@ -28,6 +25,8 @@ Capture:
   [] @test Write tests for app.ts
 
 Done:
+  [X] @code Write AddTag method
+  [X] @test Write AddTag test
   [X] @test Fix faulty unit test for AddEntryToYaml
   [X] @bfix Send user back to entry if invalid selection is made
   [X] @code Write DeleteQuestion method

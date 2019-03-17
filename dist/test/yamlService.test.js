@@ -74,6 +74,12 @@ describe('YamlService', () => {
             assert.equal(mockRead1[1].question, 'What is 1 plus 1?');
             assert.equal(mockRead1[1].answer, 'two');
         });
+        it('should add tags in test.yaml', () => {
+            testYamlService.EditEntryInYaml(1, mockYamlPath, undefined, undefined, ['tech', 'answered']);
+            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
+            assert.deepEqual(mockRead1[1].tags, ['tech', 'answered']);
+            assert.equal(mockRead1[1].answer, 'two');
+        });
     });
     describe('SortEntriesInYaml', () => {
         it('should sort the YAML file by date', () => {
@@ -84,14 +90,14 @@ describe('YamlService', () => {
             assert.equal(mockRead[0].answer, '');
         });
     });
-    describe('RemoveEntryFromYaml', () => {
-        it('should remove last entry from test.yaml', () => {
-            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
-            testYamlService.RemoveEntryFromYaml(mockRead1.length - 1, mockYamlPath);
-            const mockRead2 = testYamlService.ReadYaml(mockYamlPath);
-            assert.deepEqual(mockRead1[0], mockRead2[0]);
-            assert.equal(mockRead1.length - 1, mockRead2.length);
-        });
-    });
+    // describe('RemoveEntryFromYaml', () => {
+    //     it('should remove last entry from test.yaml', () => {
+    //         const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
+    //         testYamlService.RemoveEntryFromYaml(mockRead1.length - 1, mockYamlPath);
+    //         const mockRead2 = testYamlService.ReadYaml(mockYamlPath);
+    //         assert.deepEqual(mockRead1[0], mockRead2[0]);
+    //         assert.equal(mockRead1.length - 1, mockRead2.length);
+    //     });
+    // });
 });
 //# sourceMappingURL=yamlService.test.js.map

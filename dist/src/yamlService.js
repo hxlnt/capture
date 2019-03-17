@@ -3,6 +3,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const YAML = require("yamljs");
 class YamlService {
+    CreateFile(path) {
+        const isFileCreated = fs.existsSync(path);
+        if (!isFileCreated) {
+            fs.writeFileSync(path, '');
+        }
+        return isFileCreated;
+    }
+    DeleteFile(path) {
+        let result = `File ${path} deleted.`;
+        try {
+            fs.unlinkSync(path);
+        }
+        catch (_a) {
+            result = `File ${path} does not exist; no action taken.`;
+        }
+        return result;
+    }
+    ReadYaml(path) {
+        return YAML.load(path);
+    }
+    CreateEntry(question) {
+        const CURRENT_DATE = new Date();
+        const DEFAULT_ANSWER = '';
+        const NULL_DATE = new Date(0);
+        return {
+            answer: DEFAULT_ANSWER,
+            dateClosed: NULL_DATE.toISOString(),
+            dateOpened: CURRENT_DATE.toISOString(),
+            question,
+        };
+    }
     AddEntryToYaml(entry, path) {
         const array = [];
         array[0] = entry;
@@ -22,7 +53,7 @@ class YamlService {
             fs.writeFileSync(path, '');
         }
     }
-    EditEntryInYaml(entryIndex, path, question, answer) {
+    EditEntryInYaml(entryIndex, path, question, answer, tags) {
         const yamlEntry = this.ReadYaml(path)[entryIndex];
         if (question) {
             yamlEntry.question = question;
@@ -32,6 +63,9 @@ class YamlService {
             if (answer !== ' ') {
                 yamlEntry.dateClosed = new Date().toISOString();
             }
+        }
+        if (tags) {
+            yamlEntry.tags = tags;
         }
         const array = [];
         array[0] = yamlEntry;
@@ -50,37 +84,6 @@ class YamlService {
         const yaml = this.ReadYaml(path);
         const yamlSorted = yaml.sort((a, b) => (a.dateOpened < b.dateOpened) ? 1 : ((b.dateOpened < a.dateOpened) ? -1 : 0));
         fs.writeFileSync(path, YAML.stringify(yamlSorted, undefined, 2));
-    }
-    ReadYaml(path) {
-        return YAML.load(path);
-    }
-    CreateFile(path) {
-        const isFileCreated = fs.existsSync(path);
-        if (!isFileCreated) {
-            fs.writeFileSync(path, '');
-        }
-        return isFileCreated;
-    }
-    DeleteFile(path) {
-        let result = `File ${path} deleted.`;
-        try {
-            fs.unlinkSync(path);
-        }
-        catch (_a) {
-            result = `File ${path} does not exist; no action taken.`;
-        }
-        return result;
-    }
-    CreateEntry(question) {
-        const CURRENT_DATE = new Date();
-        const DEFAULT_ANSWER = '';
-        const NULL_DATE = new Date(0);
-        return {
-            answer: DEFAULT_ANSWER,
-            dateClosed: NULL_DATE.toISOString(),
-            dateOpened: CURRENT_DATE.toISOString(),
-            question,
-        };
     }
 }
 exports.default = YamlService;

@@ -8,6 +8,7 @@
         "align": [true, "parameters", "arguments", "statements"],
         "comment-format": [true, "check-space", "check-uppercase"],
         "curly": true,
+        "no-console": false,
         "no-consecutive-blank-lines": [true, 2],
         "no-unnecessary-class": true,
         "ordered-imports": true,

@@ -55,7 +55,7 @@ export default class App {
             } else if (answer.entryoptions === 'b') {
                 this.capMain();
             } else if (answer.entryoptions === 'd') {
-                this.deleteQuestion(entryIndex);
+                this.capDeleteQuestion(entryIndex);
             } else if (answer.entryoptions === 'e') {
                 this.capEditQuestion(entryIndex);
             } else {
@@ -99,13 +99,26 @@ export default class App {
         });
     }
 
-    public deleteQuestion(entryIndex: number) {
+    public capDeleteQuestion(entryIndex: number) {
         inquirer.prompt(prompts.deleteConfirm).then((answer: inquirer.Answers) => {
             if (answer.deleteentry === true) {
                 this.storageService.RemoveEntryFromYaml(entryIndex, this.questionPath);
                 this.capMain();
             } else { this.capShowEntry(entryIndex); }
         });
+    }
+
+    public capFilterEntries(tag: string) {
+        const yaml = this.storageService.ReadYaml(this.questionPath);
+        if (yaml != null) {
+            this.storageService.SortEntriesInYaml(this.questionPath);
+        }
+        prompts.mainMenu.choices = ['+ Add question'];
+        for (const i in yaml) {
+            if (yaml[i].tags.includes(tag)) {
+                prompts.mainMenu.choices.push(`${yaml[i].question}`);
+            }
+        }
     }
 
 }

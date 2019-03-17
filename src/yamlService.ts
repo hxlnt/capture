@@ -2,6 +2,32 @@ import fs = require('fs');
 import YAML = require('yamljs');
 
 export default class YamlService {
+    [x: string]: any;
+    CreateFile(path: string): any {
+        const isFileCreated = fs.existsSync(path);
+        if (!isFileCreated) { fs.writeFileSync(path, ''); }
+        return isFileCreated;
+    }
+    DeleteFile(path: string): any {
+        let result = `File ${path} deleted.`;
+        try { fs.unlinkSync(path); } catch { result = `File ${path} does not exist; no action taken.`; }
+        return result;
+    }
+    ReadYaml(path: string): any {
+        return YAML.load(path);
+    }
+    CreateEntry(question: string): any {
+        const CURRENT_DATE = new Date();
+        const DEFAULT_ANSWER = '';
+        const NULL_DATE = new Date(0);
+    
+        return {
+            answer: DEFAULT_ANSWER,
+            dateClosed: NULL_DATE.toISOString(),
+            dateOpened: CURRENT_DATE.toISOString(),
+            question,
+        };
+    }
 
     public AddEntryToYaml(entry: IQuestion, path: string): number {
 
@@ -27,13 +53,16 @@ export default class YamlService {
 
     }
 
-    public EditEntryInYaml(entryIndex: number, path: string, question?: string, answer?: string) {
+    public EditEntryInYaml(entryIndex: number, path: string, question?: string, answer?: string, tags?: Array<string>) {
 
         const yamlEntry = this.ReadYaml(path)[entryIndex];
         if (question) { yamlEntry.question = question; }
         if (answer) {
             yamlEntry.answer = answer;
             if (answer !== ' ') { yamlEntry.dateClosed = new Date().toISOString(); }
+        }
+        if (tags) {
+            yamlEntry.tags = tags;
         }
         const array = [];
         array[0] = yamlEntry;
@@ -59,48 +88,48 @@ export default class YamlService {
 
     }
 
-    public ReadYaml(path: string) {
-
-        return YAML.load(path);
-
-    }
-
-    public CreateFile(path: string): boolean {
-
-        const isFileCreated = fs.existsSync(path);
-
-        if (!isFileCreated) { fs.writeFileSync(path, ''); }
-
-        return isFileCreated;
-
-    }
-
-    public DeleteFile(path: string): string {
-
-        let result = `File ${path} deleted.`;
-
-        try { fs.unlinkSync(path); } catch { result = `File ${path} does not exist; no action taken.`; }
-
-        return result;
-
-    }
-
-    public CreateEntry(question: string): IQuestion {
-
-        const CURRENT_DATE = new Date();
-        const DEFAULT_ANSWER = '';
-        const NULL_DATE = new Date(0);
-
-        return {
-            answer: DEFAULT_ANSWER,
-            dateClosed: NULL_DATE.toISOString(),
-            dateOpened: CURRENT_DATE.toISOString(),
-            question,
-        };
-
-    }
-
 }
+
+// export function CreateFile(path: string): boolean {
+
+//     const isFileCreated = fs.existsSync(path);
+
+//     if (!isFileCreated) { fs.writeFileSync(path, ''); }
+
+//     return isFileCreated;
+
+// }
+
+// export function CreateEntry(question: string): IQuestion {
+
+//     const CURRENT_DATE = new Date();
+//     const DEFAULT_ANSWER = '';
+//     const NULL_DATE = new Date(0);
+
+//     return {
+//         answer: DEFAULT_ANSWER,
+//         dateClosed: NULL_DATE.toISOString(),
+//         dateOpened: CURRENT_DATE.toISOString(),
+//         question,
+//     };
+
+// }
+
+// export function DeleteFile(path: string): string {
+
+//     let result = `File ${path} deleted.`;
+
+//     try { fs.unlinkSync(path); } catch { result = `File ${path} does not exist; no action taken.`; }
+
+//     return result;
+
+// }
+
+// export function ReadYaml(path: string) {
+
+//     return YAML.load(path);
+
+// }
 
 export interface IQuestion {
 

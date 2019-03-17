@@ -79,6 +79,12 @@ describe('YamlService', () => {
             assert.equal(mockRead1[1].question, 'What is 1 plus 1?');
             assert.equal(mockRead1[1].answer, 'two');
         });
+        it('should add tags in test.yaml', () => {
+            testYamlService.EditEntryInYaml(1, mockYamlPath, undefined, undefined, ['tech', 'answered']);
+            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
+            assert.deepEqual(mockRead1[1].tags, ['tech', 'answered']);
+            assert.equal(mockRead1[1].answer, 'two');
+        });
     });
 
     describe('SortEntriesInYaml', () => {
