@@ -15,16 +15,18 @@
 (bottom bar) 1/2 questions answered.
 
 Capture:
-  [] @code Write ListQuestionsFiltered method
+  [] @code Write ListQuestionsFilteredByTag method
+  [] @code Write ListQuestionsFilteredByAnswer method
   [] @code Write DeleteTag method
   [] @test Write DeleteTag test
   [] @code Add stats bar
+  [] @code Improve names of files/methods/classes
   [] @test Improve test coverage (>= 95%)
   [] @docs Write basic usage instructions
-  [] @code Fix linting errors
   [] @test Write tests for app.ts
 
 Done:
+  [X] @code Fix initial round of linting errors
   [X] @code Write AddTag method
   [X] @test Write AddTag test
   [X] @test Fix faulty unit test for AddEntryToYaml

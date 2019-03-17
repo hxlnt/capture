@@ -2,60 +2,69 @@ import fs = require('fs');
 import YAML = require('yamljs');
 
 export default class YamlService {
-    [x: string]: any;
-    CreateFile(path: string): any {
-        const isFileCreated = fs.existsSync(path);
-        if (!isFileCreated) { fs.writeFileSync(path, ''); }
-        return isFileCreated;
-    }
-    DeleteFile(path: string): any {
-        let result = `File ${path} deleted.`;
-        try { fs.unlinkSync(path); } catch { result = `File ${path} does not exist; no action taken.`; }
-        return result;
-    }
-    ReadYaml(path: string): any {
-        return YAML.load(path);
-    }
-    CreateEntry(question: string): any {
-        const CURRENT_DATE = new Date();
-        const DEFAULT_ANSWER = '';
-        const NULL_DATE = new Date(0);
-    
-        return {
-            answer: DEFAULT_ANSWER,
-            dateClosed: NULL_DATE.toISOString(),
-            dateOpened: CURRENT_DATE.toISOString(),
-            question,
-        };
+
+    private questionPath: string;
+    constructor( questionPath: string) {
+        this.questionPath = questionPath;
     }
 
-    public AddEntryToYaml(entry: IQuestion, path: string): number {
+    public CreateFile(): boolean {
+        const isFileCreated = fs.existsSync(this.questionPath);
+        if (!isFileCreated) { fs.writeFileSync(this.questionPath, ''); }
+        return isFileCreated;
+    }
+    public DeleteFile(): string {
+        let result = `File ${this.questionPath} deleted.`;
+        try {
+            fs.unlinkSync(this.questionPath);
+        } catch {
+            result = `File ${this.questionPath} does not exist; no action taken.`;
+        }
+        return result;
+    }
+
+    public ReadYaml(): any {
+        return YAML.load(this.questionPath);
+    }
+
+    public AddEntryToYaml(entry: IQuestion): number {
 
         const array = [];
         array[0] = entry;
         const entryAsYaml = YAML.stringify(array, undefined, 2);
 
-        fs.appendFileSync(path, entryAsYaml);
+        fs.appendFileSync(this.questionPath, entryAsYaml);
 
-        const newYaml = this.ReadYaml(path);
+        const newYaml = this.ReadYaml();
         return newYaml.length - 1;
 
     }
 
-    public RemoveEntryFromYaml(entryIndex: number, path: string) {
+    public RemoveEntryFromYaml(entryIndex: number) {
 
-        let yaml = this.ReadYaml(path);
+        let yaml = this.ReadYaml();
         if (yaml.length > 1) {
             yaml.splice(entryIndex, 1);
             yaml = YAML.stringify(yaml, undefined, 2);
-            fs.writeFileSync(path, yaml);
-        } else { fs.writeFileSync(path, ''); }
+            fs.writeFileSync(this.questionPath, yaml);
+        } else { fs.writeFileSync(this.questionPath, ''); }
 
     }
 
-    public EditEntryInYaml(entryIndex: number, path: string, question?: string, answer?: string, tags?: Array<string>) {
+    public SortEntriesInYaml() {
 
-        const yamlEntry = this.ReadYaml(path)[entryIndex];
+        const yaml = this.ReadYaml();
+
+        const yamlSorted = yaml.sort(
+            (a: IQuestion, b: IQuestion) =>
+                (a.dateOpened < b.dateOpened) ? 1 : ((b.dateOpened < a.dateOpened) ? -1 : 0));
+        fs.writeFileSync(this.questionPath, YAML.stringify(yamlSorted, undefined, 2));
+
+    }
+
+    public EditEntryInYaml(entryIndex: number, question?: string, answer?: string, tags?: string[]) {
+
+        const yamlEntry = this.ReadYaml()[entryIndex];
         if (question) { yamlEntry.question = question; }
         if (answer) {
             yamlEntry.answer = answer;
@@ -66,70 +75,17 @@ export default class YamlService {
         }
         const array = [];
         array[0] = yamlEntry;
-        if (this.ReadYaml(path)[1]) {
-            this.RemoveEntryFromYaml(entryIndex, path);
+        if (this.ReadYaml()[1]) {
+            this.RemoveEntryFromYaml(entryIndex);
             const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
-            fs.appendFileSync(path, editedEntryAsYaml);
+            fs.appendFileSync(this.questionPath, editedEntryAsYaml);
         } else {
             const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
-            fs.appendFileSync(path, editedEntryAsYaml);
-            this.RemoveEntryFromYaml(0, path);
+            fs.appendFileSync(this.questionPath, editedEntryAsYaml);
+            this.RemoveEntryFromYaml(0);
         }
     }
-
-    public SortEntriesInYaml(path: string) {
-
-        const yaml = this.ReadYaml(path);
-
-        const yamlSorted = yaml.sort(
-            (a: IQuestion, b: IQuestion) =>
-                (a.dateOpened < b.dateOpened) ? 1 : ((b.dateOpened < a.dateOpened) ? -1 : 0));
-        fs.writeFileSync(path, YAML.stringify(yamlSorted, undefined, 2));
-
-    }
-
 }
-
-// export function CreateFile(path: string): boolean {
-
-//     const isFileCreated = fs.existsSync(path);
-
-//     if (!isFileCreated) { fs.writeFileSync(path, ''); }
-
-//     return isFileCreated;
-
-// }
-
-// export function CreateEntry(question: string): IQuestion {
-
-//     const CURRENT_DATE = new Date();
-//     const DEFAULT_ANSWER = '';
-//     const NULL_DATE = new Date(0);
-
-//     return {
-//         answer: DEFAULT_ANSWER,
-//         dateClosed: NULL_DATE.toISOString(),
-//         dateOpened: CURRENT_DATE.toISOString(),
-//         question,
-//     };
-
-// }
-
-// export function DeleteFile(path: string): string {
-
-//     let result = `File ${path} deleted.`;
-
-//     try { fs.unlinkSync(path); } catch { result = `File ${path} does not exist; no action taken.`; }
-
-//     return result;
-
-// }
-
-// export function ReadYaml(path: string) {
-
-//     return YAML.load(path);
-
-// }
 
 export interface IQuestion {
 
@@ -137,5 +93,6 @@ export interface IQuestion {
     answer: string;
     dateOpened: string;
     dateClosed: string;
+    tags: string[];
 
 }

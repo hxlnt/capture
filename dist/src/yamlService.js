@@ -3,58 +3,55 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const YAML = require("yamljs");
 class YamlService {
-    CreateFile(path) {
-        const isFileCreated = fs.existsSync(path);
+    constructor(questionPath) {
+        this.questionPath = questionPath;
+    }
+    CreateFile() {
+        const isFileCreated = fs.existsSync(this.questionPath);
         if (!isFileCreated) {
-            fs.writeFileSync(path, '');
+            fs.writeFileSync(this.questionPath, '');
         }
         return isFileCreated;
     }
-    DeleteFile(path) {
-        let result = `File ${path} deleted.`;
+    DeleteFile() {
+        let result = `File ${this.questionPath} deleted.`;
         try {
-            fs.unlinkSync(path);
+            fs.unlinkSync(this.questionPath);
         }
         catch (_a) {
-            result = `File ${path} does not exist; no action taken.`;
+            result = `File ${this.questionPath} does not exist; no action taken.`;
         }
         return result;
     }
-    ReadYaml(path) {
-        return YAML.load(path);
+    ReadYaml() {
+        return YAML.load(this.questionPath);
     }
-    CreateEntry(question) {
-        const CURRENT_DATE = new Date();
-        const DEFAULT_ANSWER = '';
-        const NULL_DATE = new Date(0);
-        return {
-            answer: DEFAULT_ANSWER,
-            dateClosed: NULL_DATE.toISOString(),
-            dateOpened: CURRENT_DATE.toISOString(),
-            question,
-        };
-    }
-    AddEntryToYaml(entry, path) {
+    AddEntryToYaml(entry) {
         const array = [];
         array[0] = entry;
         const entryAsYaml = YAML.stringify(array, undefined, 2);
-        fs.appendFileSync(path, entryAsYaml);
-        const newYaml = this.ReadYaml(path);
+        fs.appendFileSync(this.questionPath, entryAsYaml);
+        const newYaml = this.ReadYaml();
         return newYaml.length - 1;
     }
-    RemoveEntryFromYaml(entryIndex, path) {
-        let yaml = this.ReadYaml(path);
+    RemoveEntryFromYaml(entryIndex) {
+        let yaml = this.ReadYaml();
         if (yaml.length > 1) {
             yaml.splice(entryIndex, 1);
             yaml = YAML.stringify(yaml, undefined, 2);
-            fs.writeFileSync(path, yaml);
+            fs.writeFileSync(this.questionPath, yaml);
         }
         else {
-            fs.writeFileSync(path, '');
+            fs.writeFileSync(this.questionPath, '');
         }
     }
-    EditEntryInYaml(entryIndex, path, question, answer, tags) {
-        const yamlEntry = this.ReadYaml(path)[entryIndex];
+    SortEntriesInYaml() {
+        const yaml = this.ReadYaml();
+        const yamlSorted = yaml.sort((a, b) => (a.dateOpened < b.dateOpened) ? 1 : ((b.dateOpened < a.dateOpened) ? -1 : 0));
+        fs.writeFileSync(this.questionPath, YAML.stringify(yamlSorted, undefined, 2));
+    }
+    EditEntryInYaml(entryIndex, question, answer, tags) {
+        const yamlEntry = this.ReadYaml()[entryIndex];
         if (question) {
             yamlEntry.question = question;
         }
@@ -69,21 +66,16 @@ class YamlService {
         }
         const array = [];
         array[0] = yamlEntry;
-        if (this.ReadYaml(path)[1]) {
-            this.RemoveEntryFromYaml(entryIndex, path);
+        if (this.ReadYaml()[1]) {
+            this.RemoveEntryFromYaml(entryIndex);
             const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
-            fs.appendFileSync(path, editedEntryAsYaml);
+            fs.appendFileSync(this.questionPath, editedEntryAsYaml);
         }
         else {
             const editedEntryAsYaml = YAML.stringify(array, undefined, 2);
-            fs.appendFileSync(path, editedEntryAsYaml);
-            this.RemoveEntryFromYaml(0, path);
+            fs.appendFileSync(this.questionPath, editedEntryAsYaml);
+            this.RemoveEntryFromYaml(0);
         }
-    }
-    SortEntriesInYaml(path) {
-        const yaml = this.ReadYaml(path);
-        const yamlSorted = yaml.sort((a, b) => (a.dateOpened < b.dateOpened) ? 1 : ((b.dateOpened < a.dateOpened) ? -1 : 0));
-        fs.writeFileSync(path, YAML.stringify(yamlSorted, undefined, 2));
     }
 }
 exports.default = YamlService;
