@@ -1,5 +1,12 @@
 -
   answer: ' '
   dateClosed: '1970-01-01T00:00:00.000Z'
+  dateOpened: '2019-03-18T21:27:05.326Z'
+  question: 'In Verilog, is it necessary to declare a wire before assigning its value?'
+  tags: [music, tech]
+-
+  answer: ' '
+  dateClosed: '1970-01-01T00:00:00.000Z'
   dateOpened: '2019-03-14T02:19:59.896Z'
   question: 'What is a subnet?'
+  tags: []

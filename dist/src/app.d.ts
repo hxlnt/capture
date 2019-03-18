@@ -1,6 +1,5 @@
-import YamlService, { IQuestion } from '../src/yamlService';
+import YamlService from '../src/yamlService';
 export default class App {
-    CreateEntry(question: string): IQuestion;
     private storageService;
     constructor(storageService: YamlService);
     capMain(): void;

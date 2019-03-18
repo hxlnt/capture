@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const assert = require("assert");
+const entry = require("../src/entry");
 const yamlService_1 = require("../src/yamlService");
-const app_1 = require("../src/app");
 describe('YamlService', () => {
-    const testYamlService = new yamlService_1.default('./test/data/test.yaml');
+    const testYamlService = new yamlService_1.default('test/data/test.yaml');
     const mockResult = {
         answer: '',
         dateClosed: '1970-01-01T00:00:00.000Z',
@@ -26,7 +26,7 @@ describe('YamlService', () => {
     });
     describe('AddEntryToYaml', () => {
         it('should write the first entry in test.yaml', () => {
-            const mockEntry = new app_1.default(testYamlService).CreateEntry('What is 1+1?');
+            const mockEntry = entry.CreateEntry('What is 1+1?');
             const entryIndex = testYamlService.AddEntryToYaml(mockEntry);
             const mockRead = testYamlService.ReadYaml();
             assert.equal(mockRead[0].question, mockResult.question);
@@ -37,7 +37,7 @@ describe('YamlService', () => {
         });
         it('should write a second entry to the top of test.yaml', () => {
             const mockRead1 = testYamlService.ReadYaml();
-            const mockEntry = new app_1.default(testYamlService).CreateEntry('What is 2+2?');
+            const mockEntry = entry.CreateEntry('What is 2+2?');
             const entryIndex = testYamlService.AddEntryToYaml(mockEntry);
             const mockRead2 = testYamlService.ReadYaml();
             assert.equal(mockRead1.length + 1, mockRead2.length);
@@ -69,10 +69,10 @@ describe('YamlService', () => {
             assert.equal(mockRead1[1].answer, 'two');
         });
         it('should add tags in test.yaml', () => {
-            testYamlService.EditEntryInYaml(1, undefined, undefined, ['tech', 'answered']);
+            testYamlService.EditEntryInYaml(1, undefined, undefined, ['tech', 'music']);
             const mockRead1 = testYamlService.ReadYaml();
-            assert.deepEqual(mockRead1[1].tags, ['tech', 'answered']);
-            assert.equal(mockRead1[1].answer, 'two');
+            console.log(mockRead1[1]);
+            assert.deepEqual(mockRead1[1].tags, ['tech', 'music']);
         });
     });
     describe('SortEntriesInYaml', () => {

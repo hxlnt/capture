@@ -1,25 +1,12 @@
 import inquirer = require('inquirer');
 import inquirerAutosubmit = require('inquirer-autosubmit-prompt');
+import * as entry from '../src/entry';
 import * as prompts from '../src/prompts';
-import YamlService, { IQuestion } from '../src/yamlService';
+import YamlService from '../src/yamlService';
 
 inquirer.registerPrompt('autosubmit', inquirerAutosubmit);
 
 export default class App {
-
-    public CreateEntry(question: string): IQuestion {
-        const CURRENT_DATE = new Date();
-        const DEFAULT_ANSWER = '';
-        const NULL_DATE = new Date(0);
-
-        return {
-            answer: DEFAULT_ANSWER,
-            dateClosed: NULL_DATE.toISOString(),
-            dateOpened: CURRENT_DATE.toISOString(),
-            question,
-            tags: [],
-        };
-    }
 
     private storageService: YamlService;
     constructor(storageService: YamlService) {
@@ -57,6 +44,7 @@ export default class App {
         console.log('\n+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
         console.log(`Question: ${yaml[entryIndex].question}`);
         console.log(`Answer: ${yaml[entryIndex].answer}`);
+        console.log(`Tags: ${yaml[entryIndex].tags[0]}`);
         console.log('+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
         console.log('(q) edit question         (a) edit answer');
         console.log('(d) delete entry          (b) go back\n');
@@ -91,8 +79,8 @@ export default class App {
         let entryIndex = 0;
         inquirer.prompt(prompts.editQuestionPrompt)
         .then((answer: inquirer.Answers) => {
-            let thisentry = this.CreateEntry('');
-            thisentry = this.CreateEntry(answer.newquestion);
+            let thisentry = entry.CreateEntry('');
+            thisentry = entry.CreateEntry(answer.newquestion);
             entryIndex = this.storageService.AddEntryToYaml(thisentry);
             this.capAddAnswer(entryIndex);
         });

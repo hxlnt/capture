@@ -1,5 +1,6 @@
 import fs = require('fs');
 import YAML = require('yamljs');
+import { IQuestion } from '../src/entry';
 
 export default class YamlService {
 
@@ -71,7 +72,9 @@ export default class YamlService {
             if (answer !== ' ') { yamlEntry.dateClosed = new Date().toISOString(); }
         }
         if (tags) {
-            yamlEntry.tags = tags;
+            const tagsArray: string[] = [];
+            tags.forEach((tag) => tagsArray.push(tag));
+            yamlEntry.tags = tagsArray;
         }
         const array = [];
         array[0] = yamlEntry;
@@ -87,12 +90,3 @@ export default class YamlService {
     }
 }
 
-export interface IQuestion {
-
-    question: string;
-    answer: string;
-    dateOpened: string;
-    dateClosed: string;
-    tags: string[];
-
-}

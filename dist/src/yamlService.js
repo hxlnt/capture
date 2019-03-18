@@ -62,7 +62,9 @@ class YamlService {
             }
         }
         if (tags) {
-            yamlEntry.tags = tags;
+            const tagsArray = [];
+            tags.forEach((tag) => tagsArray.push(tag));
+            yamlEntry.tags = tagsArray;
         }
         const array = [];
         array[0] = yamlEntry;
