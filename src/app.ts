@@ -45,8 +45,8 @@ export default class App {
         console.log(`Question: ${yaml[entryIndex].question}`);
         console.log(`Answer: ${yaml[entryIndex].answer}`);
         console.log('+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
-        console.log('(q) edit question       (a) edit answer');
-        console.log('(d) delete entry            (b) go back\n');
+        console.log('(q) edit question         (a) edit answer');
+        console.log('(d) delete entry              (b) go back\n');
         inquirer.prompt(prompts.entryOptions)
         .then((answer: inquirer.Answers) => {
             if (answer.entryoptions === 'a') {
@@ -55,7 +55,7 @@ export default class App {
                 this.capMain();
             } else if (answer.entryoptions === 'd') {
                 this.capDeleteQuestion(entryIndex);
-            } else if (answer.entryoptions === 'e') {
+            } else if (answer.entryoptions === 'q') {
                 this.capEditQuestion(entryIndex);
             } else {
                 console.log('That is not a valid choice. Please try again.');
