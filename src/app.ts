@@ -122,6 +122,6 @@ export default class App {
     }
 
 }
-const yamlService = new YamlService('data/questions.yaml');
+const yamlService = new YamlService('questions.yaml');
 const app = new App(yamlService);
 app.capMain();

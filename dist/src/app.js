@@ -120,7 +120,7 @@ class App {
     }
 }
 exports.default = App;
-const yamlService = new yamlService_1.default('data/questions.yaml');
+const yamlService = new yamlService_1.default('questions.yaml');
 const app = new App(yamlService);
 app.capMain();
 //# sourceMappingURL=app.js.map
