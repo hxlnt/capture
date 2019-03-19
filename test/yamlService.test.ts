@@ -1,43 +1,36 @@
 import assert = require('assert');
+import * as entry from '../src/entry';
 import YamlService from '../src/yamlService';
 
 describe('YamlService', () => {
-    const testYamlService = new YamlService();
+    const testYamlService =  new YamlService('test/data/test.yaml');
     const mockResult = {
         answer: '',
         dateClosed: '1970-01-01T00:00:00.000Z',
         dateOpened: '2019-03-02T06:59:04.436Z',
         question: 'What is 1+1?',
     };
-    const mockYamlPath = './test/data/test.yaml';
 
-    before(() => { console.log(testYamlService.DeleteFile(mockYamlPath)); });
-
-    describe('CreateEntry', () => {
-        it('should create a entry object from a string', () => {
-            const mockEntry = testYamlService.CreateEntry('What is 1+1?');
-            assert.equal(mockEntry.question, mockResult.question);
-            assert.equal(mockEntry.answer, '');
-            assert.deepEqual(mockEntry.dateClosed, mockResult.dateClosed);
-        });
+    before(() => {
+        console.log(testYamlService.DeleteFile());
     });
 
     describe('CreateYamlFile', () => {
         it('should create a new YAML file if one does not exist', () => {
-            const testIsFileCreated = testYamlService.CreateFile(mockYamlPath);
+            const testIsFileCreated = testYamlService.CreateFile();
             assert.equal(testIsFileCreated, false);
         });
         it('should not create a new YAML file if one already exists', () => {
-            const testIsFileCreated = testYamlService.CreateFile(mockYamlPath);
+            const testIsFileCreated = testYamlService.CreateFile();
             assert.equal(testIsFileCreated, true);
         });
     });
 
     describe('AddEntryToYaml', () => {
         it('should write the first entry in test.yaml', () => {
-            const mockEntry = testYamlService.CreateEntry('What is 1+1?');
-            const entryIndex = testYamlService.AddEntryToYaml(mockEntry, mockYamlPath);
-            const mockRead = testYamlService.ReadYaml(mockYamlPath);
+            const mockEntry = entry.CreateEntry('What is 1+1?');
+            const entryIndex = testYamlService.AddEntryToYaml(mockEntry);
+            const mockRead = testYamlService.ReadYaml();
             assert.equal(mockRead[0].question, mockResult.question);
             assert.equal(mockRead[0].answer, mockResult.answer);
             assert.deepEqual(mockRead[0].dateClosed, mockResult.dateClosed);
@@ -45,10 +38,10 @@ describe('YamlService', () => {
             assert.equal(entryIndex, 0);
         });
         it('should write a second entry to the top of test.yaml', () => {
-            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
-            const mockEntry = testYamlService.CreateEntry('What is 2+2?');
-            const entryIndex = testYamlService.AddEntryToYaml(mockEntry, mockYamlPath);
-            const mockRead2 = testYamlService.ReadYaml(mockYamlPath);
+            const mockRead1 = testYamlService.ReadYaml();
+            const mockEntry = entry.CreateEntry('What is 2+2?');
+            const entryIndex = testYamlService.AddEntryToYaml(mockEntry);
+            const mockRead2 = testYamlService.ReadYaml();
             assert.equal(mockRead1.length + 1, mockRead2.length);
             assert.deepEqual(mockRead2[mockRead2.length - 1], mockEntry);
             // There should be two entries in the file.
@@ -59,7 +52,7 @@ describe('YamlService', () => {
 
     describe('ReadYaml', () => {
         it('should read two entries test.yaml', () => {
-            const mockRead = testYamlService.ReadYaml(mockYamlPath);
+            const mockRead = testYamlService.ReadYaml();
             assert.equal(mockRead[0].question, mockResult.question);
             assert.equal(mockRead.length, 2);
         });
@@ -67,41 +60,35 @@ describe('YamlService', () => {
 
     describe('EditEntryInYaml', () => {
         it('should edit just a question in test.yaml', () => {
-            testYamlService.EditEntryInYaml(0, mockYamlPath, 'What is 1 plus 1?', undefined);
-            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
+            testYamlService.EditEntryInYaml(0, 'What is 1 plus 1?', undefined);
+            const mockRead1 = testYamlService.ReadYaml();
             // It should add the entry to the end of the file after editing
             assert.equal(mockRead1[1].question, 'What is 1 plus 1?');
             assert.equal(mockRead1[1].answer, '');
         });
         it('should edit just an answer in test.yaml', () => {
-            testYamlService.EditEntryInYaml(1, mockYamlPath, undefined, 'two');
-            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
+            testYamlService.EditEntryInYaml(1, undefined, 'two');
+            const mockRead1 = testYamlService.ReadYaml();
             assert.equal(mockRead1[1].question, 'What is 1 plus 1?');
-            assert.equal(mockRead1[1].answer, 'two');
-        });
-        it('should add tags in test.yaml', () => {
-            testYamlService.EditEntryInYaml(1, mockYamlPath, undefined, undefined, ['tech', 'answered']);
-            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
-            assert.deepEqual(mockRead1[1].tags, ['tech', 'answered']);
             assert.equal(mockRead1[1].answer, 'two');
         });
     });
 
     describe('SortEntriesInYaml', () => {
         it('should sort the YAML file by date', () => {
-            testYamlService.SortEntriesInYaml(mockYamlPath);
+            testYamlService.SortEntriesInYaml();
         });
         it('should reverse the order of the entries', () => {
-            const mockRead = testYamlService.ReadYaml(mockYamlPath);
+            const mockRead = testYamlService.ReadYaml();
             assert.equal(mockRead[0].answer, '');
         });
     });
 
     describe('RemoveEntryFromYaml', () => {
         it('should remove last entry from test.yaml', () => {
-            const mockRead1 = testYamlService.ReadYaml(mockYamlPath);
-            testYamlService.RemoveEntryFromYaml(mockRead1.length - 1, mockYamlPath);
-            const mockRead2 = testYamlService.ReadYaml(mockYamlPath);
+            const mockRead1 = testYamlService.ReadYaml();
+            testYamlService.RemoveEntryFromYaml(mockRead1.length - 1);
+            const mockRead2 = testYamlService.ReadYaml();
             assert.deepEqual(mockRead1[0], mockRead2[0]);
             assert.equal(mockRead1.length - 1, mockRead2.length);
         });

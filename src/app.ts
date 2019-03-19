@@ -1,24 +1,23 @@
 import inquirer = require('inquirer');
 import inquirerAutosubmit = require('inquirer-autosubmit-prompt');
+import * as entry from '../src/entry';
 import * as prompts from '../src/prompts';
-import YamlService, { IQuestion } from '../src/yamlService';
+import YamlService from '../src/yamlService';
 
 inquirer.registerPrompt('autosubmit', inquirerAutosubmit);
 
 export default class App {
 
     private storageService: YamlService;
-    private questionPath: string;
-    constructor(storageService: YamlService, questionPath: string) {
+    constructor(storageService: YamlService) {
         this.storageService = storageService;
-        this.questionPath = questionPath;
     }
 
     public capMain() {
-        this.storageService.CreateFile(this.questionPath);
-        const yaml = this.storageService.ReadYaml(this.questionPath);
+        this.storageService.CreateFile();
+        const yaml = this.storageService.ReadYaml();
         if (yaml != null) {
-            this.storageService.SortEntriesInYaml(this.questionPath);
+            this.storageService.SortEntriesInYaml();
         }
         prompts.mainMenu.choices = ['+ Add question'];
         for (const i in yaml) {
@@ -41,13 +40,13 @@ export default class App {
     }
 
     public capShowEntry(entryIndex: number) {
-        const yaml = this.storageService.ReadYaml('data/questions.yaml');
+        const yaml = this.storageService.ReadYaml();
         console.log('\n+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
         console.log(`Question: ${yaml[entryIndex].question}`);
         console.log(`Answer: ${yaml[entryIndex].answer}`);
         console.log('+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
-        console.log('(q) edit question         (a) edit answer');
-        console.log('(d) delete entry          (b) go back\n');
+        console.log('(q) edit question       (a) edit answer');
+        console.log('(d) delete entry            (b) go back\n');
         inquirer.prompt(prompts.entryOptions)
         .then((answer: inquirer.Answers) => {
             if (answer.entryoptions === 'a') {
@@ -65,12 +64,13 @@ export default class App {
         });
     }
 
+
     public capEditQuestion(entryIndex: number) {
-        const thisentry = this.storageService.ReadYaml(this.questionPath)[entryIndex];
+        const thisentry = this.storageService.ReadYaml()[entryIndex];
         prompts.editQuestionPrompt.default = thisentry.question;
         inquirer.prompt(prompts.editQuestionPrompt).then((answer: inquirer.Answers) => {
-            this.storageService.EditEntryInYaml(entryIndex, this.questionPath, answer.newquestion, undefined);
-            this.storageService.SortEntriesInYaml(this.questionPath);
+            this.storageService.EditEntryInYaml(entryIndex, answer.newquestion);
+            this.storageService.SortEntriesInYaml();
             this.capShowEntry(entryIndex);
         });
     }
@@ -79,22 +79,22 @@ export default class App {
         let entryIndex = 0;
         inquirer.prompt(prompts.editQuestionPrompt)
         .then((answer: inquirer.Answers) => {
-            let thisentry = this.storageService.CreateEntry('');
-            thisentry = this.storageService.CreateEntry(answer.newquestion);
-            entryIndex = this.storageService.AddEntryToYaml(thisentry, this.questionPath);
+            let thisentry = entry.CreateEntry('');
+            thisentry = entry.CreateEntry(answer.newquestion);
+            entryIndex = this.storageService.AddEntryToYaml(thisentry);
             this.capAddAnswer(entryIndex);
         });
     }
 
     public capAddAnswer(entryIndex: number) {
-            const thisentry = this.storageService.ReadYaml(this.questionPath)[entryIndex];
+            const thisentry = this.storageService.ReadYaml()[entryIndex];
             console.log(thisentry.question);
             inquirer.prompt(prompts.editAnswerPrompt).then((answer: inquirer.Answers) => {
             if (answer.newanswer === prompts.editAnswerPrompt.default) {
                 answer.newanswer = ' ';
             }
-            this.storageService.EditEntryInYaml(entryIndex, this.questionPath, undefined, answer.newanswer);
-            this.storageService.SortEntriesInYaml(this.questionPath);
+            this.storageService.EditEntryInYaml(entryIndex, undefined, answer.newanswer);
+            this.storageService.SortEntriesInYaml();
             this.capMain();
         });
     }
@@ -102,16 +102,16 @@ export default class App {
     public capDeleteQuestion(entryIndex: number) {
         inquirer.prompt(prompts.deleteConfirm).then((answer: inquirer.Answers) => {
             if (answer.deleteentry === true) {
-                this.storageService.RemoveEntryFromYaml(entryIndex, this.questionPath);
+                this.storageService.RemoveEntryFromYaml(entryIndex);
                 this.capMain();
             } else { this.capShowEntry(entryIndex); }
         });
     }
 
     public capFilterEntries(tag: string) {
-        const yaml = this.storageService.ReadYaml(this.questionPath);
+        const yaml = this.storageService.ReadYaml();
         if (yaml != null) {
-            this.storageService.SortEntriesInYaml(this.questionPath);
+            this.storageService.SortEntriesInYaml();
         }
         prompts.mainMenu.choices = ['+ Add question'];
         for (const i in yaml) {
@@ -122,6 +122,6 @@ export default class App {
     }
 
 }
-const yamlService = new YamlService();
-const app = new App(yamlService, 'data/questions.yaml');
+const yamlService = new YamlService('data/questions.yaml');
+const app = new App(yamlService);
 app.capMain();
