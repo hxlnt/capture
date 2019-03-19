@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const inquirer = require("inquirer");
 const inquirerAutosubmit = require("inquirer-autosubmit-prompt");
+const entry = require("../src/entry");
 const prompts = require("../src/prompts");
 const yamlService_1 = require("../src/yamlService");
-const entry = require("../src/entry");
 inquirer.registerPrompt('autosubmit', inquirerAutosubmit);
 class App {
     constructor(storageService) {
@@ -41,9 +41,8 @@ class App {
         console.log('\n+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
         console.log(`Question: ${yaml[entryIndex].question}`);
         console.log(`Answer: ${yaml[entryIndex].answer}`);
-        console.log(`Tags: ${yaml[entryIndex].tags[0]}`);
         console.log('+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
-        console.log('(q) edit question         (a) edit answer');
+        console.log('(q) edit question     (a) edit answer\n');
         console.log('(d) delete entry          (b) go back\n');
         inquirer.prompt(prompts.entryOptions)
             .then((answer) => {
@@ -69,7 +68,7 @@ class App {
         const thisentry = this.storageService.ReadYaml()[entryIndex];
         prompts.editQuestionPrompt.default = thisentry.question;
         inquirer.prompt(prompts.editQuestionPrompt).then((answer) => {
-            this.storageService.EditEntryInYaml(entryIndex, answer.newquestion, undefined);
+            this.storageService.EditEntryInYaml(entryIndex, answer.newquestion);
             this.storageService.SortEntriesInYaml();
             this.capShowEntry(entryIndex);
         });
@@ -91,7 +90,7 @@ class App {
             if (answer.newanswer === prompts.editAnswerPrompt.default) {
                 answer.newanswer = ' ';
             }
-            this.storageService.EditEntryInYaml(entryIndex, undefined, answer.newanswer, undefined);
+            this.storageService.EditEntryInYaml(entryIndex, undefined, answer.newanswer);
             this.storageService.SortEntriesInYaml();
             this.capMain();
         });

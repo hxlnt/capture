@@ -8,6 +8,6 @@ export default class YamlService {
     AddEntryToYaml(entry: IQuestion): number;
     RemoveEntryFromYaml(entryIndex: number): void;
     SortEntriesInYaml(): void;
-    EditEntryInYaml(entryIndex: number, question?: string, answer?: string, tags?: string[]): void;
+    EditEntryInYaml(entryIndex: number, question?: string, answer?: string): void;
 }
 //# sourceMappingURL=yamlService.d.ts.map

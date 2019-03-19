@@ -4,6 +4,5 @@ export interface IQuestion {
     answer: string;
     dateOpened: string;
     dateClosed: string;
-    tags: string[];
 }
 //# sourceMappingURL=entry.d.ts.map

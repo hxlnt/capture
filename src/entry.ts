@@ -9,7 +9,6 @@ export function CreateEntry(question: string): IQuestion {
         dateClosed: NULL_DATE.toISOString(),
         dateOpened: CURRENT_DATE.toISOString(),
         question,
-        tags: [],
     };
 }
 
@@ -19,6 +18,5 @@ export interface IQuestion {
     answer: string;
     dateOpened: string;
     dateClosed: string;
-    tags: string[];
 
 }

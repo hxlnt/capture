@@ -50,7 +50,7 @@ class YamlService {
         const yamlSorted = yaml.sort((a, b) => (a.dateOpened < b.dateOpened) ? 1 : ((b.dateOpened < a.dateOpened) ? -1 : 0));
         fs.writeFileSync(this.questionPath, YAML.stringify(yamlSorted, undefined, 2));
     }
-    EditEntryInYaml(entryIndex, question, answer, tags) {
+    EditEntryInYaml(entryIndex, question, answer) {
         const yamlEntry = this.ReadYaml()[entryIndex];
         if (question) {
             yamlEntry.question = question;
@@ -60,11 +60,6 @@ class YamlService {
             if (answer !== ' ') {
                 yamlEntry.dateClosed = new Date().toISOString();
             }
-        }
-        if (tags) {
-            const tagsArray = [];
-            tags.forEach((tag) => tagsArray.push(tag));
-            yamlEntry.tags = tagsArray;
         }
         const array = [];
         array[0] = yamlEntry;

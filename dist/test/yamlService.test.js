@@ -68,12 +68,6 @@ describe('YamlService', () => {
             assert.equal(mockRead1[1].question, 'What is 1 plus 1?');
             assert.equal(mockRead1[1].answer, 'two');
         });
-        it('should add tags in test.yaml', () => {
-            testYamlService.EditEntryInYaml(1, undefined, undefined, ['tech', 'music']);
-            const mockRead1 = testYamlService.ReadYaml();
-            console.log(mockRead1[1]);
-            assert.deepEqual(mockRead1[1].tags, ['tech', 'music']);
-        });
     });
     describe('SortEntriesInYaml', () => {
         it('should sort the YAML file by date', () => {

@@ -44,10 +44,9 @@ export default class App {
         console.log('\n+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
         console.log(`Question: ${yaml[entryIndex].question}`);
         console.log(`Answer: ${yaml[entryIndex].answer}`);
-        console.log(`Tags: ${yaml[entryIndex].tags[0]}`);
         console.log('+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+');
-        console.log('(q) edit question         (a) edit answer');
-        console.log('(d) delete entry          (b) go back\n');
+        console.log('(q) edit question       (a) edit answer');
+        console.log('(d) delete entry            (b) go back\n');
         inquirer.prompt(prompts.entryOptions)
         .then((answer: inquirer.Answers) => {
             if (answer.entryoptions === 'a') {
@@ -65,11 +64,12 @@ export default class App {
         });
     }
 
+
     public capEditQuestion(entryIndex: number) {
         const thisentry = this.storageService.ReadYaml()[entryIndex];
         prompts.editQuestionPrompt.default = thisentry.question;
         inquirer.prompt(prompts.editQuestionPrompt).then((answer: inquirer.Answers) => {
-            this.storageService.EditEntryInYaml(entryIndex, answer.newquestion, undefined);
+            this.storageService.EditEntryInYaml(entryIndex, answer.newquestion);
             this.storageService.SortEntriesInYaml();
             this.capShowEntry(entryIndex);
         });
@@ -93,7 +93,7 @@ export default class App {
             if (answer.newanswer === prompts.editAnswerPrompt.default) {
                 answer.newanswer = ' ';
             }
-            this.storageService.EditEntryInYaml(entryIndex, undefined, answer.newanswer, undefined);
+            this.storageService.EditEntryInYaml(entryIndex, undefined, answer.newanswer);
             this.storageService.SortEntriesInYaml();
             this.capMain();
         });

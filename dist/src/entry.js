@@ -9,7 +9,6 @@ function CreateEntry(question) {
         dateClosed: NULL_DATE.toISOString(),
         dateOpened: CURRENT_DATE.toISOString(),
         question,
-        tags: [],
     };
 }
 exports.CreateEntry = CreateEntry;

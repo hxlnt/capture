@@ -63,18 +63,13 @@ export default class YamlService {
 
     }
 
-    public EditEntryInYaml(entryIndex: number, question?: string, answer?: string, tags?: string[]) {
+    public EditEntryInYaml(entryIndex: number, question?: string, answer?: string) {
 
         const yamlEntry = this.ReadYaml()[entryIndex];
         if (question) { yamlEntry.question = question; }
         if (answer) {
             yamlEntry.answer = answer;
             if (answer !== ' ') { yamlEntry.dateClosed = new Date().toISOString(); }
-        }
-        if (tags) {
-            const tagsArray: string[] = [];
-            tags.forEach((tag) => tagsArray.push(tag));
-            yamlEntry.tags = tagsArray;
         }
         const array = [];
         array[0] = yamlEntry;
