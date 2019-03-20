@@ -5,13 +5,6 @@ export const mainMenu = {
     type: 'list',
 };
 
-export const filteredMainMenu = {
-    choices: ['+ Add question'],
-    message: 'Welcome to CAPTURE\n\n',
-    name: 'options',
-    type: 'list',
-};
-
 export const entryOptions = {
     autoSubmit: (input: { length: number; }) => input.length === 1,
     message: 'Make a selection:',

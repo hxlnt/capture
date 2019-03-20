@@ -14,6 +14,7 @@ export default class YamlService {
         if (!isFileCreated) { fs.writeFileSync(this.questionPath, ''); }
         return isFileCreated;
     }
+
     public DeleteFile(): string {
         let result = `File ${this.questionPath} deleted.`;
         try {
@@ -33,9 +34,7 @@ export default class YamlService {
         const array = [];
         array[0] = entry;
         const entryAsYaml = YAML.stringify(array, undefined, 2);
-
         fs.appendFileSync(this.questionPath, entryAsYaml);
-
         const newYaml = this.ReadYaml();
         return newYaml.length - 1;
 
@@ -55,7 +54,6 @@ export default class YamlService {
     public SortEntriesInYaml() {
 
         const yaml = this.ReadYaml();
-
         const yamlSorted = yaml.sort(
             (a: IQuestion, b: IQuestion) =>
                 (a.dateOpened < b.dateOpened) ? 1 : ((b.dateOpened < a.dateOpened) ? -1 : 0));

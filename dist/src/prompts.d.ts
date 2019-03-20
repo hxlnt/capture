@@ -4,12 +4,6 @@ export declare const mainMenu: {
     name: string;
     type: string;
 };
-export declare const filteredMainMenu: {
-    choices: string[];
-    message: string;
-    name: string;
-    type: string;
-};
 export declare const entryOptions: {
     autoSubmit: (input: {
         length: number;

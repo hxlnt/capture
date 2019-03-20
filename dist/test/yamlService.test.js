@@ -4,15 +4,23 @@ const assert = require("assert");
 const entry = require("../src/entry");
 const yamlService_1 = require("../src/yamlService");
 describe('YamlService', () => {
-    const testYamlService = new yamlService_1.default('test/data/test.yaml');
+    const testQuestionPath = 'test/data/test.yaml';
+    const testYamlService = new yamlService_1.default(testQuestionPath);
     const mockResult = {
         answer: '',
         dateClosed: '1970-01-01T00:00:00.000Z',
         dateOpened: '2019-03-02T06:59:04.436Z',
         question: 'What is 1+1?',
     };
-    before(() => {
-        console.log(testYamlService.DeleteFile());
+    describe('DeleteYamlFile', () => {
+        it('should delete existing YAML file.', () => {
+            const testResult = testYamlService.DeleteFile();
+            assert.equal(testResult, `File ${testQuestionPath} deleted.`);
+        });
+        it('should return a friendly message if trying to delete a file that doesn\'t exist.', () => {
+            const testResult = testYamlService.DeleteFile();
+            assert.equal(testResult, `File ${testQuestionPath} does not exist; no action taken.`);
+        });
     });
     describe('CreateYamlFile', () => {
         it('should create a new YAML file if one does not exist', () => {
@@ -79,12 +87,26 @@ describe('YamlService', () => {
         });
     });
     describe('RemoveEntryFromYaml', () => {
-        it('should remove last entry from test.yaml', () => {
+        it('should remove bottom-most entry from test.yaml', () => {
             const mockRead1 = testYamlService.ReadYaml();
             testYamlService.RemoveEntryFromYaml(mockRead1.length - 1);
             const mockRead2 = testYamlService.ReadYaml();
             assert.deepEqual(mockRead1[0], mockRead2[0]);
             assert.equal(mockRead1.length - 1, mockRead2.length);
+        });
+        it('should edit remaining entry from test.yaml', () => {
+            const mockRead1 = testYamlService.ReadYaml();
+            testYamlService.EditEntryInYaml(0, 'Another edit');
+            const mockRead2 = testYamlService.ReadYaml();
+            assert.notEqual(mockRead1[0].question, mockRead2[0].question);
+            assert.equal(mockRead2[0].question, 'Another edit');
+        });
+        it('should remove remaining entry from test.yaml', () => {
+            const mockRead1 = testYamlService.ReadYaml();
+            testYamlService.RemoveEntryFromYaml(mockRead1[0]);
+            const mockRead2 = testYamlService.ReadYaml();
+            assert.notEqual(mockRead1, mockRead2);
+            assert.equal(mockRead2, null);
         });
     });
 });

@@ -6,12 +6,6 @@ exports.mainMenu = {
     name: 'options',
     type: 'list',
 };
-exports.filteredMainMenu = {
-    choices: ['+ Add question'],
-    message: 'Welcome to CAPTURE\n\n',
-    name: 'options',
-    type: 'list',
-};
 exports.entryOptions = {
     autoSubmit: (input) => input.length === 1,
     message: 'Make a selection:',
