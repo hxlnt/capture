@@ -12,7 +12,7 @@ Capture is a CLI tool written in Typescript for writing structured text input in
 `npm install`
 
 ## Run
-`node src/dist/app.js`
+`node dist/src/app.js`
 
 ## Build from source + run tests + output coverage report
 `npm run coverage`
