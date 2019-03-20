@@ -17,10 +17,10 @@
 Capture:
   [] @code Add stats bar
   [] @code Improve names of files/methods/classes
-  [x] @test Improve test coverage (>= 95%)
   [] @docs Write basic usage instructions
 
 Done:
+  [x] @test Improve test coverage (>= 95%)
   [X] @tool Incorporate linting tests into build step
   [X] @code Fix initial round of linting errors
   [X] @code Write AddTag method
