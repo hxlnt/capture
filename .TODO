@@ -15,6 +15,7 @@
 (bottom bar) 1/2 questions answered.
 
 Capture:
+  [] @bfix Use real cross-platform paths
   [] @code Add stats bar
   [] @code Improve names of files/methods/classes
   [] @docs Write basic usage instructions
