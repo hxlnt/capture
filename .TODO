@@ -15,8 +15,7 @@
 (bottom bar) 1/2 questions answered.
 
 Capture:
-  [] @bfix Use real cross-platform paths
-  [] @bfix Investigate whether it's possible to populate the capAddAnswer() input with the existing value
+
   [] @code Add stats bar
   [] @code Improve names of files/methods/classes
   [] @docs Write basic usage instructions

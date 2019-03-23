@@ -1,0 +1,5 @@
+-
+  answer: 'Set RUN/PROG switch to RUN, set SW9 switch to DOWN, plug in power supply, connect dev board to PC via USB, connect dev board to monitor and speakers, then power on dev board. This should engage the blue power LED, the 7-segment display, the red and green LEDs, the VGA output, and sound output.'
+  dateClosed: '2019-03-20T02:28:59.688Z'
+  dateOpened: '2019-03-20T02:22:39.997Z'
+  question: 'How do you perform a diagnostic test on an Altera DE1 dev board?'
